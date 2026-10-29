@@ -1,0 +1,32 @@
+[package]
+name = "verusseek-rs"
+version = "0.1.0"
+edition = "2021"
+autoexamples = false
+default-run = "verusseek-rs"
+description = "Rust-native verifier-guided proof synthesis and benchmarking"
+license = "MIT"
+
+[[bin]]
+name = "verusseek-rs"
+path = "src/main.rs"
+
+[[bin]]
+name = "verusseek"
+path = "src/verusseek.rs"
+test = false
+
+[dependencies]
+ratatui = { version = "=0.30.2", default-features = false, features = ["crossterm"] }
+crossterm = "0.29"
+anyhow = "1"
+clap = { version = "4.5", features = ["derive", "env"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+syn_verus = { path = "vendor/syn_verus", features = ["full", "extra-traits", "visit", "visit-mut"] }
+quote = "1"
+proc-macro2 = { version = "1", features = ["span-locations"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"

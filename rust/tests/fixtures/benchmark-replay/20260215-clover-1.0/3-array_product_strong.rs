@@ -1,0 +1,42 @@
+use vstd::prelude::*;
+
+fn main() {}
+
+verus! {
+
+#[verifier::loop_isolation(false)]
+
+fn product(a: &Vec<u32>, b: &Vec<u32>) -> (c: Vec<u32>)
+    requires
+        a.len() <= 100 && a.len() == b.len(),
+        forall|i: int| (0 <= i && i < a.len()) ==> (a[i] * b[i] < 1000),
+    ensures
+        c@.len() == a@.len(),
+        forall|i: int| (0 <= i && i < a.len()) ==> c[i] == #[trigger] a[i] * #[trigger] b[i],
+{
+    let mut c = Vec::with_capacity(a.len());
+    let mut n: usize = 0;
+    let len: usize = a.len();
+    while n != len
+        invariant
+            a.len() <= 100,
+            a.len() == b.len(),
+            c.len() == n, // Fixed by AI
+            n >= 0,
+            n <= a.len(),
+            forall|i: int| (0 <= i && i < n) ==> c[i] == a[i] * b[i], // Added by AI
+        decreases len - n
+    {
+        let product: u32 = a[n] * b[n];
+        c.push(product);
+        n = n + 1;
+    }
+    proof {
+        assert(forall|i: int| (0 <= i && i < a.len()) ==> c[i] == #[trigger] a[i] * #[trigger] b[i]); // Added by AI
+    }
+    c
+}
+
+} // verus!
+// Score: Compilation Error: False, Verified: 1, Errors: 0, Verus Errors: 0
+// Safe: True

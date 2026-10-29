@@ -1,0 +1,24 @@
+[package]
+name = "syn_verus"
+version = "2.0.96"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Vendored Verus syntax parser (upstream 142e202)"
+
+[features]
+default = ["derive", "parsing", "printing", "clone-impls", "proc-macro"]
+derive = []
+full = []
+parsing = []
+printing = ["dep:quote"]
+visit = []
+visit-mut = []
+fold = []
+clone-impls = []
+extra-traits = []
+proc-macro = ["proc-macro2/proc-macro", "quote?/proc-macro"]
+
+[dependencies]
+proc-macro2 = { version = "1.0.91", default-features = false }
+quote = { version = "1.0.35", optional = true, default-features = false }
+unicode-ident = "1"

@@ -1,0 +1,67 @@
+
+use vstd::prelude::*;
+fn main() {}
+
+verus!{
+
+#[verifier::loop_isolation(false)]
+fn conditional_average(vals_1: &Vec<u64>, vals_2: &Vec<u64>, conds_1: &Vec<bool>, conds_2: &Vec<bool>, avgs: &mut Vec<u64>) 
+    requires 
+        vals_1.len() == vals_2.len(),
+        vals_1.len() == conds_1.len(),
+        vals_1.len() == conds_2.len(),
+        forall |idx:int| 0 <= idx < vals_1.len() ==> conds_1[idx] || conds_2[idx],
+        forall |idx:int| 0 <= idx < vals_1.len() ==> vals_1[idx] < 1000,
+        forall |idx:int| 0 <= idx < vals_2.len() ==> vals_2[idx] < 1000,
+    ensures
+        avgs.len() == vals_1.len(),
+        forall |idx:int| 0 <= idx < vals_1.len() ==> (
+            (conds_1[idx] && conds_2[idx] ==> avgs[idx] == (vals_1[idx] + vals_2[idx]) / 2) &&
+            (conds_1[idx] && !conds_2[idx] ==> avgs[idx] == vals_1[idx]) &&
+            (!conds_1[idx] && conds_2[idx] ==> avgs[idx] == vals_2[idx])
+        )
+{
+    let mut k: usize = 0;
+    let common_len = vals_1.len();
+    avgs.clear();
+    while (k < common_len)
+    invariant
+        forall |idx:int| 0 <= idx < vals_1.len() ==> vals_1[idx] < 1000, // vals_1 is never modified in the loop
+        forall |idx:int| 0 <= idx < vals_2.len() ==> vals_2[idx] < 1000, // vals_2 is never modified in the loop
+        vals_1.len() == common_len,
+        vals_2.len() == common_len,
+        conds_1.len() == common_len,
+        conds_2.len() == common_len,
+        avgs.len() == k,
+        forall |idx:int| 0 <= idx < k ==> (
+            (conds_1[idx] && conds_2[idx] ==> avgs[idx] == (vals_1[idx] + vals_2[idx]) / 2) &&
+            (conds_1[idx] && !conds_2[idx] ==> avgs[idx] == vals_1[idx]) &&
+            (!conds_1[idx] && conds_2[idx] ==> avgs[idx] == vals_2[idx])
+        )
+    decreases common_len - k
+    {
+        let mut new_avg: u64 = 0;
+        if (conds_1[k]) {
+            if (conds_2[k]) {
+                new_avg = (vals_1[k] + vals_2[k]) / 2;
+            }
+            else {
+                new_avg = vals_1[k];
+            }
+        }
+        else {
+            new_avg = vals_2[k];
+        }
+        avgs.push(new_avg);
+        k = k + 1;
+    }
+    assert(avgs.len() == common_len) by {
+        assert(avgs.len() == k);
+    assert(0 <= common_len);  // Establish lower bound
+    assert(0 <= common_len);  // Establish lower bound
+        assert(k == common_len);
+    }
+}
+}
+// Score: Compilation Error: False, Verified: 0, Errors: 1, Verus Errors: 1
+// Safe: True

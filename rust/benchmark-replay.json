@@ -1,0 +1,617 @@
+{
+  "CloverBench/unverified/all_digits_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-all_digits_strong.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-all_digits_strong.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/3-all_digits_strong.rs"
+  ],
+  "CloverBench/unverified/array_append_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-array_append_strong.rs"
+  ],
+  "CloverBench/unverified/array_concat_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-array_concat_strong.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-array_concat_strong.rs"
+  ],
+  "CloverBench/unverified/array_copy_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-array_copy_strong.rs"
+  ],
+  "CloverBench/unverified/array_product_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-array_product_strong.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-array_product_strong.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/3-array_product_strong.rs"
+  ],
+  "CloverBench/unverified/array_sum_strong.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-array_sum_strong.rs"
+  ],
+  "CloverBench/unverified/binary_search.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-binary_search.rs"
+  ],
+  "CloverBench/unverified/cal_div.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-cal_div.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-cal_div.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/3-cal_div.rs"
+  ],
+  "CloverBench/unverified/is_prime.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-is_prime.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-is_prime.rs"
+  ],
+  "CloverBench/unverified/linear_search2.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-linear_search2.rs"
+  ],
+  "CloverBench/unverified/two_sum.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/1-two_sum.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/2-two_sum.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-clover-1.0/3-two_sum.rs"
+  ],
+  "Diffy/unverified/brs1.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-brs1.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-brs1.rs"
+  ],
+  "Diffy/unverified/brs2.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-brs2.rs"
+  ],
+  "Diffy/unverified/brs3.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-brs3.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-brs3.rs"
+  ],
+  "Diffy/unverified/brs4.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-brs4.rs"
+  ],
+  "Diffy/unverified/brs5.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-brs5.rs"
+  ],
+  "Diffy/unverified/conda.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-conda.rs"
+  ],
+  "Diffy/unverified/condg.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-condg.rs"
+  ],
+  "Diffy/unverified/condm.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-condm.rs"
+  ],
+  "Diffy/unverified/condn.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-condn.rs"
+  ],
+  "Diffy/unverified/ms1.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-ms1.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-ms1.rs"
+  ],
+  "Diffy/unverified/ms2.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-ms2.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-ms2.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/3-ms2.rs"
+  ],
+  "Diffy/unverified/ms3.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-ms3.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-ms3.rs"
+  ],
+  "Diffy/unverified/ms4.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-ms4.rs"
+  ],
+  "Diffy/unverified/ms5.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-ms5.rs"
+  ],
+  "Diffy/unverified/res1.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-res1.rs"
+  ],
+  "Diffy/unverified/res1o.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-res1o.rs"
+  ],
+  "Diffy/unverified/res2.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-res2.rs"
+  ],
+  "Diffy/unverified/res2o.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-res2o.rs"
+  ],
+  "Diffy/unverified/s12if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s12if.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s12if.rs"
+  ],
+  "Diffy/unverified/s1if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s1if.rs"
+  ],
+  "Diffy/unverified/s1lif.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s1lif.rs"
+  ],
+  "Diffy/unverified/s22if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s22if.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s22if.rs"
+  ],
+  "Diffy/unverified/s2if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s2if.rs"
+  ],
+  "Diffy/unverified/s2lif.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s2lif.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s2lif.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/3-s2lif.rs"
+  ],
+  "Diffy/unverified/s32if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s32if.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s32if.rs"
+  ],
+  "Diffy/unverified/s3if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s3if.rs"
+  ],
+  "Diffy/unverified/s3lif.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s3lif.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s3lif.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/3-s3lif.rs"
+  ],
+  "Diffy/unverified/s42if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s42if.rs"
+  ],
+  "Diffy/unverified/s4if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s4if.rs"
+  ],
+  "Diffy/unverified/s4lif.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s4lif.rs"
+  ],
+  "Diffy/unverified/s52if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s52if.rs"
+  ],
+  "Diffy/unverified/s5if.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s5if.rs"
+  ],
+  "Diffy/unverified/s5lif.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-s5lif.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-s5lif.rs"
+  ],
+  "Diffy/unverified/sina1.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-sina1.rs"
+  ],
+  "Diffy/unverified/sina2.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-sina2.rs"
+  ],
+  "Diffy/unverified/sina3.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-sina3.rs"
+  ],
+  "Diffy/unverified/sina4.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-sina4.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/2-sina4.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/3-sina4.rs"
+  ],
+  "Diffy/unverified/sina5.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-diffy-1.0/1-sina5.rs"
+  ],
+  "MBPP/unverified/task_id_105.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_105.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_105.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_105.rs"
+  ],
+  "MBPP/unverified/task_id_113.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_113.rs"
+  ],
+  "MBPP/unverified/task_id_133.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_133.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_133.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_133.rs"
+  ],
+  "MBPP/unverified/task_id_142.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_142.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_142.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_142.rs"
+  ],
+  "MBPP/unverified/task_id_145.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_145.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_145.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_145.rs"
+  ],
+  "MBPP/unverified/task_id_161.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_161.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_161.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_161.rs"
+  ],
+  "MBPP/unverified/task_id_170.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_170.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_170.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_170.rs"
+  ],
+  "MBPP/unverified/task_id_18.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_18.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_18.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_18.rs"
+  ],
+  "MBPP/unverified/task_id_2.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_2.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_2.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_2.rs"
+  ],
+  "MBPP/unverified/task_id_230.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_230.rs"
+  ],
+  "MBPP/unverified/task_id_240.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_240.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_240.rs"
+  ],
+  "MBPP/unverified/task_id_249.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_249.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_249.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_249.rs"
+  ],
+  "MBPP/unverified/task_id_251.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_251.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_251.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_251.rs"
+  ],
+  "MBPP/unverified/task_id_261.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_261.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_261.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_261.rs"
+  ],
+  "MBPP/unverified/task_id_262.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_262.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_262.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_262.rs"
+  ],
+  "MBPP/unverified/task_id_273.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_273.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_273.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_273.rs"
+  ],
+  "MBPP/unverified/task_id_282.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_282.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_282.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_282.rs"
+  ],
+  "MBPP/unverified/task_id_284.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_284.rs"
+  ],
+  "MBPP/unverified/task_id_290.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_290.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_290.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_290.rs"
+  ],
+  "MBPP/unverified/task_id_3.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_3.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_3.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_3.rs"
+  ],
+  "MBPP/unverified/task_id_307.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_307.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_307.rs"
+  ],
+  "MBPP/unverified/task_id_399.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_399.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_399.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_399.rs"
+  ],
+  "MBPP/unverified/task_id_412.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_412.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_412.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_412.rs"
+  ],
+  "MBPP/unverified/task_id_414.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_414.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_414.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_414.rs"
+  ],
+  "MBPP/unverified/task_id_424.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_424.rs"
+  ],
+  "MBPP/unverified/task_id_426.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_426.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_426.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_426.rs"
+  ],
+  "MBPP/unverified/task_id_431.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_431.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_431.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_431.rs"
+  ],
+  "MBPP/unverified/task_id_433.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_433.rs"
+  ],
+  "MBPP/unverified/task_id_436.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_436.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_436.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_436.rs"
+  ],
+  "MBPP/unverified/task_id_445.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_445.rs"
+  ],
+  "MBPP/unverified/task_id_447.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_447.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_447.rs"
+  ],
+  "MBPP/unverified/task_id_454.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_454.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_454.rs"
+  ],
+  "MBPP/unverified/task_id_457.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_457.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_457.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_457.rs"
+  ],
+  "MBPP/unverified/task_id_460.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_460.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_460.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_460.rs"
+  ],
+  "MBPP/unverified/task_id_461.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_461.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_461.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_461.rs"
+  ],
+  "MBPP/unverified/task_id_472.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_472.rs"
+  ],
+  "MBPP/unverified/task_id_474.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_474.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_474.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_474.rs"
+  ],
+  "MBPP/unverified/task_id_476.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_476.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_476.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_476.rs"
+  ],
+  "MBPP/unverified/task_id_477.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_477.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_477.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_477.rs"
+  ],
+  "MBPP/unverified/task_id_554.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_554.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_554.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_554.rs"
+  ],
+  "MBPP/unverified/task_id_557.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_557.rs"
+  ],
+  "MBPP/unverified/task_id_567.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_567.rs"
+  ],
+  "MBPP/unverified/task_id_572.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_572.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_572.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_572.rs"
+  ],
+  "MBPP/unverified/task_id_576.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_576.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_576.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_576.rs"
+  ],
+  "MBPP/unverified/task_id_578.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_578.rs"
+  ],
+  "MBPP/unverified/task_id_579.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_579.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_579.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_579.rs"
+  ],
+  "MBPP/unverified/task_id_586.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_586.rs"
+  ],
+  "MBPP/unverified/task_id_588.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_588.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_588.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_588.rs"
+  ],
+  "MBPP/unverified/task_id_602.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_602.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_602.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_602.rs"
+  ],
+  "MBPP/unverified/task_id_605.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_605.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_605.rs"
+  ],
+  "MBPP/unverified/task_id_610.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_610.rs"
+  ],
+  "MBPP/unverified/task_id_616.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_616.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_616.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_616.rs"
+  ],
+  "MBPP/unverified/task_id_618.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_618.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_618.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_618.rs"
+  ],
+  "MBPP/unverified/task_id_62.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_62.rs"
+  ],
+  "MBPP/unverified/task_id_624.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_624.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_624.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_624.rs"
+  ],
+  "MBPP/unverified/task_id_629.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_629.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_629.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_629.rs"
+  ],
+  "MBPP/unverified/task_id_644.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_644.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_644.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_644.rs"
+  ],
+  "MBPP/unverified/task_id_69.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_69.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_69.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_69.rs"
+  ],
+  "MBPP/unverified/task_id_70.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_70.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_70.rs"
+  ],
+  "MBPP/unverified/task_id_728.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_728.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_728.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_728.rs"
+  ],
+  "MBPP/unverified/task_id_732.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_732.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_732.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_732.rs"
+  ],
+  "MBPP/unverified/task_id_733.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_733.rs"
+  ],
+  "MBPP/unverified/task_id_741.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_741.rs"
+  ],
+  "MBPP/unverified/task_id_743.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_743.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_743.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_743.rs"
+  ],
+  "MBPP/unverified/task_id_755.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_755.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_755.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_755.rs"
+  ],
+  "MBPP/unverified/task_id_760.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_760.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_760.rs"
+  ],
+  "MBPP/unverified/task_id_764.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_764.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_764.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_764.rs"
+  ],
+  "MBPP/unverified/task_id_769.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_769.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_769.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_769.rs"
+  ],
+  "MBPP/unverified/task_id_775.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_775.rs"
+  ],
+  "MBPP/unverified/task_id_790.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_790.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_790.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_790.rs"
+  ],
+  "MBPP/unverified/task_id_798.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_798.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_798.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_798.rs"
+  ],
+  "MBPP/unverified/task_id_8.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_8.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_8.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_8.rs"
+  ],
+  "MBPP/unverified/task_id_804.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_804.rs"
+  ],
+  "MBPP/unverified/task_id_807.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_807.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_807.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/3-task_id_807.rs"
+  ],
+  "MBPP/unverified/task_id_808.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_808.rs"
+  ],
+  "MBPP/unverified/task_id_809.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_809.rs"
+  ],
+  "MBPP/unverified/task_id_94.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_94.rs",
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/2-task_id_94.rs"
+  ],
+  "MBPP/unverified/task_id_95.rs": [
+    "rust/tests/fixtures/benchmark-replay/mbpp-paper-gpt-4o/1-task_id_95.rs"
+  ],
+  "Misc/unverified/arg_free.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-arg_free.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-arg_free.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-arg_free.rs"
+  ],
+  "Misc/unverified/basic_nonlinear.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-basic_nonlinear.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-basic_nonlinear.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-basic_nonlinear.rs"
+  ],
+  "Misc/unverified/binary_search.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-binary_search.rs"
+  ],
+  "Misc/unverified/bubble.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-bubble.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-bubble.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-bubble.rs"
+  ],
+  "Misc/unverified/cell_2_sum.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-cell_2_sum.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-cell_2_sum.rs"
+  ],
+  "Misc/unverified/choose_odd.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-choose_odd.rs"
+  ],
+  "Misc/unverified/conditional_average.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-conditional_average.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-conditional_average.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-conditional_average.rs"
+  ],
+  "Misc/unverified/deduplicate.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-deduplicate.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-deduplicate.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-deduplicate.rs"
+  ],
+  "Misc/unverified/fib.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-fib.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-fib.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-fib.rs"
+  ],
+  "Misc/unverified/filter.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-filter.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-filter.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-filter.rs"
+  ],
+  "Misc/unverified/filter_weak.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-filter_weak.rs"
+  ],
+  "Misc/unverified/findmax.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-findmax.rs"
+  ],
+  "Misc/unverified/havoc_inline_post.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-havoc_inline_post.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-havoc_inline_post.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-havoc_inline_post.rs"
+  ],
+  "Misc/unverified/len_intersect.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-len_intersect.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-len_intersect.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-len_intersect.rs"
+  ],
+  "Misc/unverified/linearsearch.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-linearsearch.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-linearsearch.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-linearsearch.rs"
+  ],
+  "Misc/unverified/map.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-map.rs"
+  ],
+  "Misc/unverified/max_index.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-max_index.rs"
+  ],
+  "Misc/unverified/remove_all_greater.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-remove_all_greater.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-remove_all_greater.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-remove_all_greater.rs"
+  ],
+  "Misc/unverified/reverse.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-reverse.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-reverse.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-reverse.rs"
+  ],
+  "Misc/unverified/simple_nested.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-simple_nested.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-simple_nested.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-simple_nested.rs"
+  ],
+  "Misc/unverified/sum.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-sum.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-sum.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-sum.rs"
+  ],
+  "Misc/unverified/tail_triangle.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-tail_triangle.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/2-tail_triangle.rs",
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/3-tail_triangle.rs"
+  ],
+  "Misc/unverified/trigger.rs": [
+    "rust/tests/fixtures/benchmark-replay/20260215-misc-1.0/1-trigger.rs"
+  ]
+}

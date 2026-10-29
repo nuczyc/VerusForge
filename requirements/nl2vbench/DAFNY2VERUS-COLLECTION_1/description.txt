@@ -1,0 +1,2 @@
+Given a non-empty array of 32-bit signed integers, return an index of a maximal element. Assume the array length is positive. The returned index must be within the bounds of the array, and the element at that index must be greater than or equal to every element in the array. If multiple elements share the maximal value, returning any one of their indices is acceptable. The algorithm must terminate for all valid inputs.
+fn max(a: &Vec<i32>) -> usize

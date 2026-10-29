@@ -1,0 +1,12 @@
+{
+  "phases": 1,
+  "inference_retries": 1,
+  "candidates": 1,
+  "refinement_retries": 0,
+  "repair_steps": 0,
+  "houdini_steps": 5,
+  "max_requests": 1,
+  "max_verifications": 20,
+  "timeout": 10,
+  "enhanced": true
+}

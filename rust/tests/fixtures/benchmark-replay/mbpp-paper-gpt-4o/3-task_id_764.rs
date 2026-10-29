@@ -1,0 +1,74 @@
+
+use vstd::prelude::*;
+
+fn main() {}
+
+verus! {
+
+#[verifier::loop_isolation(false)]
+
+spec fn is_digit(c: u8) -> bool {
+    (c >= 48 && c <= 57)
+}
+
+spec fn count_digits_recursively(seq: Seq<u8>) -> int
+    decreases seq.len(),
+{
+    if seq.len() == 0 {
+        0
+    } else {
+        count_digits_recursively(seq.drop_last()) + if is_digit(seq.last()) {
+            1 as int
+        } else {
+            0 as int
+        }
+    }
+}
+
+proof fn count_digits_recursively_matches(seq: Seq<u8>, index: int, count: int)
+    requires
+        0 <= index <= seq.len(),
+        count == count_digits_recursively(seq.subrange(0, index)),
+    ensures
+        count == count_digits_recursively(seq.subrange(0, index)),
+    decreases seq.len() - index
+{
+    assert(count == count_digits_recursively(seq.subrange(0, index)));
+}
+
+fn count_digits(text: &[u8]) -> (count: usize)
+    ensures
+        0 <= count <= text.len(),
+        count_digits_recursively(text@) == count,
+{
+    let mut count = 0;
+    let mut index = 0;
+
+    while index < text.len()
+        invariant
+            text.len() == text.len(),
+            forall |k: int| 0 <= k < text.len() ==> text[k] == text[k],
+            0 <= count <= index,
+            count == count_digits_recursively(text@.subrange(0, index as int)),
+        decreases text.len() - index
+    {
+        if (text[index] >= 48 && text[index] <= 57) {
+            assert(count < text.len());
+            count += 1;
+        }
+        index += 1;
+        proof {
+            count_digits_recursively_matches(text@, index as int, ( count ) as int);
+        }
+    }
+    proof {
+        assert(count_digits_recursively(text@) == count);
+    }
+    count
+}
+
+} // verus!
+
+
+// Score: Compilation Error: False, Verified: 2, Errors: 3, Verus Errors: 3
+// Safe: True

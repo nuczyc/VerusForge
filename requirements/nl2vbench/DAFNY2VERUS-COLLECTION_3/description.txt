@@ -1,0 +1,2 @@
+Implement a function that takes a 64-bit unsigned integer as input and returns that same value. Assume the input is non-negative (which holds for unsigned integers). The function should conceptually count from 0 up to the input value without exceeding it. The implementation must guarantee that the result equals the input. If iteration is used, the intermediate counter must always remain within the inclusive range from 0 to the input, and progress toward completion must strictly decrease to ensure termination.
+fn count_to_and_return_n(n: u64) -> (r: u64)

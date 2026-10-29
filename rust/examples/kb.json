@@ -1,0 +1,6 @@
+{
+  "bounded-increment": {
+    "document": "For increment(x: u64) with requires x < 100, assert(x + 1 <= 100); establishes the bound before returning x + 1.",
+    "metadata": {"kind": "arithmetic"}
+  }
+}

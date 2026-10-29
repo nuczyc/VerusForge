@@ -1,0 +1,7 @@
+Given an array of 32-bit signed integers and a target integer, implement a function that performs a linear search from the beginning of the array to locate the first occurrence of the target. The function must return the index of the first occurrence if it exists; otherwise, it must return the length of the array. There are no preconditions on the input array (it may be empty, contain duplicates, or be unsorted).
+
+The result must satisfy the following properties:
+- The returned index is within the range [0, array length].
+- If the returned index equals the array length, then the target does not appear anywhere in the array.
+- If the returned index is strictly less than the array length, then the element at that index equals the target, and the target does not appear at any earlier index. In other words, the returned index is the first position of the target in the array.
+fn linear_search(a: &Vec<i32>, e: i32) -> (n: usize)

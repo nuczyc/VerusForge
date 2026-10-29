@@ -1,0 +1,38 @@
+{
+  "repository": "https://github.com/Xidian-ICTT-GZ/NL2VBench",
+  "revision": "27ed666c4829face9f519aa5edbe5843baf40cff",
+  "entries": [
+    {
+      "id": "DAFNY2VERUS-COLLECTION_1",
+      "label": "数组最大值下标",
+      "path": "requirements/nl2vbench/DAFNY2VERUS-COLLECTION_1/description.txt",
+      "upstream_path": "dataset/NL2VBench/DAFNY2VERUS-COLLECTION_1/description.txt",
+      "url": "https://github.com/Xidian-ICTT-GZ/NL2VBench/blob/27ed666c4829face9f519aa5edbe5843baf40cff/dataset/NL2VBench/DAFNY2VERUS-COLLECTION_1/description.txt",
+      "blob_sha": "71f53f58b43a048db3bab75fbb4ebb5647c0f320"
+    },
+    {
+      "id": "DAFNY2VERUS-COLLECTION_2",
+      "label": "循环求两个数最大值",
+      "path": "requirements/nl2vbench/DAFNY2VERUS-COLLECTION_2/description.txt",
+      "upstream_path": "dataset/NL2VBench/DAFNY2VERUS-COLLECTION_2/description.txt",
+      "url": "https://github.com/Xidian-ICTT-GZ/NL2VBench/blob/27ed666c4829face9f519aa5edbe5843baf40cff/dataset/NL2VBench/DAFNY2VERUS-COLLECTION_2/description.txt",
+      "blob_sha": "5e008c7a560a53a37fb7a97a1f271f79007d60be"
+    },
+    {
+      "id": "DAFNY2VERUS-COLLECTION_3",
+      "label": "计数并返回输入值",
+      "path": "requirements/nl2vbench/DAFNY2VERUS-COLLECTION_3/description.txt",
+      "upstream_path": "dataset/NL2VBench/DAFNY2VERUS-COLLECTION_3/description.txt",
+      "url": "https://github.com/Xidian-ICTT-GZ/NL2VBench/blob/27ed666c4829face9f519aa5edbe5843baf40cff/dataset/NL2VBench/DAFNY2VERUS-COLLECTION_3/description.txt",
+      "blob_sha": "012122cd9244498d81e7f5a9f7071f08bbf4116c"
+    },
+    {
+      "id": "DAFNY2VERUS-COLLECTION_9",
+      "label": "查找首次出现位置",
+      "path": "requirements/nl2vbench/DAFNY2VERUS-COLLECTION_9/description.txt",
+      "upstream_path": "dataset/NL2VBench/DAFNY2VERUS-COLLECTION_9/description.txt",
+      "url": "https://github.com/Xidian-ICTT-GZ/NL2VBench/blob/27ed666c4829face9f519aa5edbe5843baf40cff/dataset/NL2VBench/DAFNY2VERUS-COLLECTION_9/description.txt",
+      "blob_sha": "7c23afe6f2d607ab34acc3ff1b4885ffe851e3be"
+    }
+  ]
+}
