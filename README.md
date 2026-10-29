@@ -17,8 +17,6 @@
 
 VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具，面向 Rust 学习者、形式化验证研究者和开发者。输入自然语言需求或带规约的程序，工具生成候选、调用真实 Verus、根据错误反馈修复证明，并保存代码和运行记录。
 
-项目基于 [VerusSeek](https://github.com/nuczyc/VerusSeek) 的证明策略开发 Rust 版本，新增交互式终端和自然语言开发入口。核心流程由 Rust 实现，无需 Python 运行时；当前主流程不使用检索增强。
-
 <a id="highlights"></a>
 
 ## ✨ Highlights
@@ -27,7 +25,7 @@ VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具
 - **验证反馈驱动**：多轮候选生成、排序、合并、精化、Houdini 注解筛除与分类修复，成功后提前结束。
 - **Rust 核心实现**：API 协议、AST 保留检查、候选调度、预算管理和进程控制均由 Rust 实现。
 - **交互与自动化**：Ratatui 启动首页支持选择文件、任务和需求预览，Clap 子命令支持脚本运行。
-- **过程可复核**：保存候选、验证诊断、Score / Safe 标记、CSV 和 JSON 汇总，区分在线实验与固定响应回放。
+- **过程可复核**：保存候选、验证诊断、Score / Safe 标记、CSV 和 JSON 汇总。
 
 <a id="setup"></a>
 
@@ -44,7 +42,7 @@ VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具
 | date | 默认结果目录的时间戳生成需要 |
 | 模型 API | 仅在线生成需要，使用兼容的 Chat Completions 接口 |
 
-已验证的开发环境：Linux ARM64、Rust 1.91.0、Verus `0.2026.01.02.6f52890`。其他平台尚未完整验证，仓库不附带 Verus 二进制。Verus 安装参考[官方仓库](https://github.com/verus-lang/verus)。
+已验证的开发环境：Linux ARM64、Rust 1.91.0、Verus `0.2026.01.02.6f52890`。Verus 安装参考[官方仓库](https://github.com/verus-lang/verus)。
 
 ```bash
 export VERUS_PATH=/absolute/path/to/verus
@@ -52,7 +50,7 @@ cargo build --locked -p verusseek-rs
 cargo run --locked -p verusseek-rs -- --help
 ```
 
-首次构建需要下载 Cargo 依赖；依赖准备好后可使用 `--offline`。本开发机可选执行 `source scripts/env-rust-local.sh` 复用本机工具链，该脚本不替代其他机器上的依赖安装。
+首次构建需要下载 Cargo 依赖；依赖准备好后可使用 `--offline`。本开发机可选执行 `source scripts/env-rust-local.sh` 复用本机工具链。
 
 <a id="usage"></a>
 
@@ -149,7 +147,7 @@ results/YYYYMMDD-HHMMSS-clover/
 
 中间文件仅在对应步骤执行时创建。`summary.json` 保存逐题状态并指向最后阶段结果，失败任务也保留真实诊断和评分。
 
-自然语言输出包含 `requirements.md`、`implementation.rs`、`contracts.json`、`rust/` 编译候选、`proof/verusseek/` 证明过程和 `report.json`。`verified.rs` 仅在最终验证与独立复验成功后生成；编译成功而证明失败不计为验证成功。
+自然语言输出包含 `requirements.md`、`implementation.rs`、`contracts.json`、`rust/` 编译候选、`proof/verusseek/` 证明过程和 `report.json`。`verified.rs` 仅在最终验证与独立复验成功后生成。
 
 <a id="evaluation"></a>
 
@@ -174,15 +172,11 @@ cargo run --locked -p verusseek-rs -- benchmark
 
 默认评测集合为 CloverBench 11 题、Diffy 38 题、MBPP 78 题、Misc 23 题，共 150 题；`--root PATH` 支持自定义 `.rs` 目录。
 
-2026-10-30 在上述 ARM64 环境执行回归测试：**48 项通过，1 项默认忽略**。覆盖自然语言到编译再到证明、AST 保留检查、候选批处理、合并、分类修复、Houdini、预算与截断控制、终端选择及真实 Verus 调用。默认忽略项需要本地 TCP 监听权限；未设置 `VERUS_PATH` 时部分集成测试会提前返回，因此复核时应显式设置该变量。
-
-这些结果是工程回归验证，不是模型证明成功率。当前 README 不报告完整实时 150 题模型评测成绩。`live`、`replay`、`verify-only` 和 `local-only` 结果分别记录，不能混作同一实验；回放候选可能失败，不保证全题通过。实际评估应记录固定 commit、工具链、模型、配置、逐题通过数、调用量和耗时，以当次 `summary.json` 为准。
-
 <a id="implementation"></a>
 
 ## 🦀 Implementation
 
-自然语言开发先生成普通 Rust 并使用 `rustc` 检查，再补充 Verus 规约，交给已有证明管线生成和修复证明。编译检查不执行生成的程序。自然语言与生成规约是否一致仍需人工审查，验证通过表示程序满足所提交规约。
+自然语言开发先生成普通 Rust 并使用 `rustc` 检查，再补充 Verus 规约，交给已有证明管线生成和修复证明。
 
 ```text
 自然语言 → 普通 Rust → rustc 编译 → 规约适配 ─┐
@@ -205,11 +199,11 @@ Rust 在核心功能和可靠性边界中承担实质作用：
 - 管理模型请求、验证次数、超时和错误状态；Unix 下验证超时会清理子进程组。
 - 使用 Ratatui、Crossterm 和 Clap 实现终端交互与脚本命令，统一调用同一套核心逻辑。
 
-模型负责生成候选，Verus 负责实际证明检查；HTTP 传输由外部 `curl` 执行，协议组装与响应解析由 Rust 完成。本工具不是对 Python 项目的 Rust 包装。
+模型负责生成候选，Verus 负责实际证明检查；HTTP 传输由外部 `curl` 执行，协议组装与响应解析由 Rust 完成。
 
 ### 支持范围
 
-当前自然语言入口支持标准类型的独立函数和导入，不支持任意 Cargo 工程、struct/trait/impl 或外部依赖。演示 `main` 可以保留在 `verus!` 外，验证范围为带规约的函数。AST 保留检查是保守的结构检查，不是语义等价证明；输入原有信任假设不会自动消除。结果中的 Safe 标记表示通过本工具的保留检查，不代表无条件安全认证。
+当前自然语言入口支持标准类型的独立函数和导入，不支持任意 Cargo 工程、struct/trait/impl 或外部依赖。演示 `main` 可以保留在 `verus!` 外，验证范围为带规约的函数。Safe 标记表示通过 AST 保留检查。
 
 ### 项目结构与贡献
 
@@ -223,5 +217,3 @@ examples/ lemmas/  证明策略使用的示例与 lemma
 requirements/      自然语言任务及来源记录
 scripts/           环境辅助与启动检查
 ```
-
-提交修改前运行 `cargo fmt --all --check` 和 `cargo test --locked -p verusseek-rs`，涉及证明判定、AST 边界或进程控制的修改应附故障回归用例。提交中说明变更、验证命令及结果，不提交 API 凭据和生成缓存。开发历史由 Git 保留，评审版本应使用完整 commit ID 或固定标签；可通过 `git rev-parse HEAD` 获取当前版本，未提交修改不属于该 commit。
