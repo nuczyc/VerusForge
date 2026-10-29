@@ -1,0 +1,14 @@
+  Verus check 1/512 ...
+  Compilation Error: True, Verified: 0, Errors: 999, Verus Errors: 1 (0.44s)
+  [original] selected
+  Verus check 2/512 ...
+  Compilation Error: True, Verified: 0, Errors: 999, Verus Errors: 1 (0.45s)
+  [deterministic_loop_synthesis] selected
+  Phase 1/3
+  Generation round 1/3 (1 candidates)
+  Checking candidate 0-0
+  [generation.direct_inference] model request 1/96 (n=1, max_tokens=8192) ...
+  model response (1.98s, 5109 input / 256 output tokens)
+  Verus check 3/512 ...
+  Compilation Error: False, Verified: 3, Errors: 0, Verus Errors: 0 (0.75s)
+  [generation.direct_inference] verified

@@ -1,0 +1,252 @@
+STRATEGY: generation.constantrefine_inference
+
+If an upper bound or a lower bound about a constant function parameter (e.g., X < ..., X > ...) is provided in the function pre-condition (i.e., in the `requires' code block at the beginning of the function),
+please copy that (e.g., X < 10, X > 5) as a loop invariant to every loop in the function.
+Even if an invariant is already specified earlier in the program, please do repeat it in every loop suitable.
+
+Here are some principles that you have to follow:
+ You should only response with Rust code, and not include any explanation.
+ You should not make any other changes to the program.
+
+PHASE: 1 / refinement
+STATIC ANALYSIS:
+{"functions":["max","slow_max","main"],"calls":["max","wrapping_add"],"types":["u64"],"loops":1,"nonlinear":false,"has_break":false,"array_writes":false,"loop_invariants":[["counter <= a","counter <= b","x == a - counter","y == b - counter"]],"contracts":{"main":"fn main ()","max":"spec fn max (x : u64 , y : u64) -> u64","slow_max":"fn slow_max (a : u64 , b : u64) -> (z : u64) ensures z == max (a , b) ,"},"dependencies":{"main":[],"max":[],"slow_max":[]},"proof_order":["max","slow_max","main"],"loop_contexts":[{"condition":"x > 0 && y > 0","reads":["counter","x","y"],"writes":["counter"],"arrays":[],"invariants":["counter <= a","counter <= b","x == a - counter","y == b - counter"]}],"proof_obligations":{"main":[],"max":[],"slow_max":["z == max (a , b)"]}}
+FEW-SHOT EXAMPLES:
+
+INPUT:
+no rules expected the token `;`
+```
+Line 50-50:
+    let q = seq![0; n];
+```
+
+Code
+```
+use vstd::prelude::*;
+fn main() {}
+
+verus! {
+
+proof fn lemma_sorted_between_single_element(a: Seq<u32>, i: int)
+    requires
+        0 <= i < a.len() as int,
+    ensures
+        sorted_between(a, i, i + 1),
+{
+    assert(sorted_between(a, i, i + 1));
+    assert(forall |x: int, y:int| i <= x < y < (i + 1) ==> a[x] <= a[y]);
+}
+
+proof fn lemma_sorted_between_transitive(a: Seq<u32>, i: int, j: int, k: int)
+    requires
+        sorted_between(a, i, k),
+        i <= j,
+        j <= k,
+    ensures
+        sorted_between(a, i, j),
+        sorted_between(a, j, k),
+{
+    assert(sorted_between(a, i, k));
+    assert(forall |x: int, y:int| i <= x < y < j ==> a[x] <= a[y]);
+    assert(forall |x: int, y:int| j <= x < y < k ==> a[x] <= a[y]);
+}
+
+spec fn sorted_between(a: Seq<u32>, from: int, to: int) -> bool {
+    forall |i: int, j:int| from <= i < j < to ==> a[i] <= a[j]
+}
+
+spec fn is_reorder_of<T>(r: Seq<int>, p: Seq<T>, s: Seq<T>) -> bool {
+    &&& r.len() == s.len()
+    &&& forall|i: int| 0 <= i < r.len() ==> 0 <= #[trigger] r[i] < r.len()
+    &&& forall|i: int, j: int| 0 <= i < j < r.len() ==> r[i] != r[j]
+    &&& p =~= r.map_values(|i: int| s[i])
+}
+
+fn test1(nums: &mut Vec<u32>)
+    ensures
+        sorted_between(nums@, 0, nums@.len() as int),
+        exists|r: Seq<int>| is_reorder_of(r, nums@, old(nums)@),
+{
+    let n = nums.len();
+    if n == 0 {
+        return;
+    }
+    proof {
+        let q = seq![0; n];
+    }
+    for i in 1..n
+    invariant
+        1 <= i <= n,
+        sorted_between(nums@, 0, i as int),
+        exists|r: Seq<int>| is_reorder_of(r, nums@.take(i as int), old(nums)@),
+    {
+        let mut j = i;
+        while j > 0
+        invariant
+            0 < j <= i,
+            sorted_between(nums@, 0, j as int),
+            sorted_between(nums@, j as int, i as int + 1),
+            exists|r: Seq<int>| is_reorder_of(r, nums@.take(i as int), old(nums)@),
+        {
+            if nums[j - 1] > nums[j] {
+                let temp = nums[j - 1];
+                nums.set(j - 1, nums[j]);
+                nums.set(j, temp);
+                proof {
+                    lemma_sorted_between_single_element(nums@, j as int - 1);
+                }
+            }
+            proof {
+                lemma_sorted_between_transitive(nums@, 0, j as int, i as int + 1);
+            }
+            j -= 1;
+        }
+    }
+}
+}
+```
+
+ANSWER:
+use vstd::prelude::*;
+fn main() {}
+
+verus! {
+
+proof fn lemma_sorted_between_single_element(a: Seq<u32>, i: int)
+    requires
+        0 <= i < a.len() as int,
+    ensures
+        sorted_between(a, i, i + 1),
+{
+    assert(sorted_between(a, i, i + 1));
+    assert(forall |x: int, y:int| i <= x < y < (i + 1) ==> a[x] <= a[y]);
+}
+
+proof fn lemma_sorted_between_transitive(a: Seq<u32>, i: int, j: int, k: int)
+    requires
+        sorted_between(a, i, k),
+        i <= j,
+        j <= k,
+    ensures
+        sorted_between(a, i, j),
+        sorted_between(a, j, k),
+{
+    assert(sorted_between(a, i, k));
+    assert(forall |x: int, y:int| i <= x < y < j ==> a[x] <= a[y]);
+    assert(forall |x: int, y:int| j <= x < y < k ==> a[x] <= a[y]);
+}
+
+spec fn sorted_between(a: Seq<u32>, from: int, to: int) -> bool {
+    forall |i: int, j:int| from <= i < j < to ==> a[i] <= a[j]
+}
+
+spec fn is_reorder_of<T>(r: Seq<int>, p: Seq<T>, s: Seq<T>) -> bool {
+    &&& r.len() == s.len()
+    &&& forall|i: int| 0 <= i < r.len() ==> 0 <= #[trigger] r[i] < r.len()
+    &&& forall|i: int, j: int| 0 <= i < j < r.len() ==> r[i] != r[j]
+    &&& p =~= r.map_values(|i: int| s[i])
+}
+
+fn test1(nums: &mut Vec<u32>)
+    ensures
+        sorted_between(nums@, 0, nums@.len() as int),
+        exists|r: Seq<int>| is_reorder_of(r, nums@, old(nums)@),
+{
+    let n = nums.len();
+    if n == 0 {
+        return;
+    }
+    proof {
+        let q = Seq::new(nums@.len(), |i: int| i); // Fixed by AI
+    }
+    for i in 1..n
+    invariant
+        1 <= i <= n,
+        sorted_between(nums@, 0, i as int),
+        exists|r: Seq<int>| is_reorder_of(r, nums@.take(i as int), old(nums)@),
+    {
+        let mut j = i;
+        while j > 0
+        invariant
+            0 < j <= i,
+            sorted_between(nums@, 0, j as int),
+            sorted_between(nums@, j as int, i as int + 1),
+            exists|r: Seq<int>| is_reorder_of(r, nums@.take(i as int), old(nums)@),
+        {
+            if nums[j - 1] > nums[j] {
+                let temp = nums[j - 1];
+                nums.set(j - 1, nums[j]);
+                nums.set(j, temp);
+                proof {
+                    lemma_sorted_between_single_element(nums@, j as int - 1);
+                }
+            }
+            proof {
+                lemma_sorted_between_transitive(nums@, 0, j as int, i as int + 1);
+            }
+            j -= 1;
+        }
+    }
+}
+}
+
+
+CURRENT PROGRAM:
+vstd::prelude::verus! {
+    use vstd::prelude::*;
+
+    spec fn max(x: u64, y: u64) -> u64 {
+        if x > y {
+            x
+        } else {
+            y
+        }
+    }
+
+    fn slow_max(a: u64, b: u64) -> (z: u64)
+        ensures
+            z == max(a, b),
+    {
+        let mut x = a;
+        let mut y = b;
+        let mut counter: u64 = 0;
+        while x > 0 && y > 0
+            invariant
+                counter <= a,
+                counter <= b,
+                x == a - counter,
+                y == b - counter
+            decreases
+                counter,
+        {
+            x -= 1;
+            y -= 1;
+            counter = counter.wrapping_add(1);
+        }
+        let m = if x > y {
+            x
+        } else {
+            y
+        };
+        counter.wrapping_add(m)
+    }
+
+    fn main() {}
+}
+
+VERIFIER FEEDBACK:
+Score: Score { verified: 2, errors: 1, compilation_error: false, diagnostics: 1 }
+Diagnostics:
+error: decreases not satisfied at end of loop
+  --> /tmp/verusseek_YdXwBs.rs:19:9
+   |
+19 |         while x > 0 && y > 0
+   |         ^^^^^^^^^^^^^^^^^^^^
+
+
+Raw verifier output:
+{"$message_type":"diagnostic","message":"decreases not satisfied at end of loop","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_YdXwBs.rs","byte_start":355,"byte_end":375,"line_start":19,"line_end":19,"column_start":9,"column_end":29,"is_primary":true,"text":[{"text":"        while x > 0 && y > 0","highlight_start":9,"highlight_end":29}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":{"span":{"file_name":"/tmp/verusseek_YdXwBs.rs","byte_start":355,"byte_end":678,"line_start":19,"line_end":31,"column_start":9,"column_end":10,"is_primary":false,"text":[{"text":"        while x > 0 && y > 0","highlight_start":9,"highlight_end":29},{"text":"            invariant","highlight_start":1,"highlight_end":22},{"text":"                counter <= a,","highlight_start":1,"highlight_end":30},{"text":"                counter <= b,","highlight_start":1,"highlight_end":30},{"text":"                x == a - counter,","highlight_start":1,"highlight_end":34},{"text":"                y == b - counter","highlight_start":1,"highlight_end":33},{"text":"            decreases","highlight_start":1,"highlight_end":22},{"text":"                counter,","highlight_start":1,"highlight_end":25},{"text":"        {","highlight_start":1,"highlight_end":10},{"text":"            x -= 1;","highlight_start":1,"highlight_end":20},{"text":"            y -= 1;","highlight_start":1,"highlight_end":20},{"text":"            counter = counter.wrapping_add(1);","highlight_start":1,"highlight_end":47},{"text":"        }","highlight_start":1,"highlight_end":10}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null},"macro_decl_name":"desugaring of `while` loop","def_site_span":{"file_name":"/tmp/verusseek_YdXwBs.rs","byte_start":0,"byte_end":0,"line_start":1,"line_end":1,"column_start":1,"column_end":1,"is_primary":false,"text":[],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}}}],"children":[],"rendered":"error: decreases not satisfied at end of loop\n  --> /tmp/verusseek_YdXwBs.rs:19:9\n   |\n19 |         while x > 0 && y > 0\n   |         ^^^^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 1 previous error\n\n"}
+
+
+Return the complete program; preserve imports, executable statements and contracts.

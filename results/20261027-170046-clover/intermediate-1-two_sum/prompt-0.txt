@@ -1,0 +1,600 @@
+STRATEGY: generation.direct_inference
+## CRITICAL: Generate STRONG and COMPLETE Loop Invariants
+
+Your mission is to add COMPREHENSIVE loop invariants to the given Rust code, if there are loops in the code, so that Verus can verify the given function behaves exactly as described in the specifications.
+
+## IMPORTANT REQUIREMENTS:
+
+1. **For EVERY array read in the loop (e.g., a[k], x[i]):**
+   - Add a SPECIFIC invariant about WHAT VALUE that array element has
+   - Use `forall` quantifier: `forall |k: int| 0 <= k < array.len() ==> ...`
+   - Example: if loop sets `a[i] = 1`, add: `forall |k: int| 0 <= k < i ==> a[k] == 1`
+
+2. **For EVERY array written in the loop (e.g., a.set(...)):**
+   - Track what values are written at what indices
+   - Add invariants about the WRITE pattern
+   - Example: `forall |k: int| i <= k < N ==> old(a)[k] == a[k]`
+
+3. **For EVERY variable modified in the loop:**
+   - Add an invariant about its CURRENT value
+   - Track how it changes with loop index
+
+4. **Copy ALL preconditions into EVERY loop invariant block**
+   - This is CRITICAL for verification success
+
+5. **DO NOT be minimal** - Add MORE invariants rather than fewer
+   - It's better to have redundant invariants than missing ones
+
+Respond with Rust code only, do not include any explanation.
+You should never change or delete existing Rust code, only ADD invariants.
+
+Remember: INCOMPLETE INVARIANTS = VERIFICATION FAILURE = MORE REPAIR STEPS
+Generate STRONG invariants NOW to save time later!
+
+
+## Generate Loop Invariants and Specifications
+
+Your mission is to add appropriate loop invariants to help Verus verify the given function. Focus on what's needed for the specific code pattern.
+
+## Loop Invariants - Key Patterns:
+
+**When the loop modifies an array:**
+- Track modified elements: `forall |k: int| 0 <= k < i ==> a[k] == new_value`
+- Track unmodified elements: `forall |k: int| i <= k < a.len() ==> old(a)[k] == a[k]`
+- Track array length: `a.len() == N` or similar
+
+**When the loop accumulates (sum, count, etc.):**
+- Track the accumulator: `sum == calculated_value(i)` or `sum <= N`
+- Track loop bounds: `0 <= i <= N`
+
+**When the loop searches or filters:**
+- Track search invariants: `forall |k: int| 0 <= k < i ==> !condition(a[k])`
+- Track found state: `found ==> exists |k: int| 0 <= k < i && a[k] == target`
+
+**Always add:**
+- decreases clause: `decreases N - i` (or appropriate termination measure)
+
+## Preconditions - When Needed:
+- Array access safety: `arr.len() > index`
+- Arithmetic overflow: `forall |i: int| 0 <= i < arr.len() ==> arr[i] < LIMIT`
+- Existence for search: `exists |i: int| arr[i] == target`
+
+## Postconditions - When Needed:
+- Length preservation: `result.len() == old(input).len()`
+- Result properties: `forall |i: int| ==> result[i] == f(old(input)[i])`
+- Unmodified elements: `forall |i: int| 0 <= i < arr.len() ==> old(arr)[i] == arr[i]`
+
+## Tips:
+- Use `#[trigger]` annotation when using quantified expressions in postconditions
+- Use `old()` to refer to pre-state values in postconditions and loop invariants
+- Copy relevant preconditions into loop invariants
+- Keep invariants focused on what the loop actually does
+
+Respond with Rust code only, do not include any explanation.
+You should never change or delete existing Rust code, only ADD invariants.
+
+Remember: INCOMPLETE INVARIANTS = VERIFICATION FAILURE = MORE REPAIR STEPS
+Generate STRONG invariants NOW to save time later!
+
+PHASE: 1 / inference
+STATIC ANALYSIS:
+{"functions":["main","two_sum"],"calls":["len"],"types":["& Vec < u32 >","(usize , usize)","Vec < u32 >","int","u32","usize"],"loops":2,"nonlinear":false,"has_break":false,"array_writes":false,"loop_invariants":[["true","nums . len () > 1","forall | ii : int , jj : int | ((0 <= ii && ii < nums . len () && ii < jj && jj < nums . len ())) ==> nums [ii] + nums [jj] < 256","exists | i : int , j : int | (0 <= i && i < j && j < nums . len ()) && nums [i] + nums [j] == target","i <= n - 1"],["true","nums . len () > 1","forall | ii : int , jj : int | ((0 <= ii && ii < nums . len () && ii < jj && jj < nums . len ())) ==> nums [ii] + nums [jj] < 256","exists | i : int , j : int | (0 <= i && i < j && j < nums . len ()) && nums [i] + nums [j] == target","j <= n"]],"contracts":{"main":"fn main ()","two_sum":"fn two_sum (nums : & Vec < u32 > , target : u32) -> (r : (usize , usize)) requires nums . len () > 1 , forall | ii : int , jj : int | ((0 <= ii && ii < nums . len () && ii < jj && jj < nums . len ())) ==> nums [ii] + nums [jj] < 256 , exists | i : int , j : int | (0 <= i && i < j && j < nums . len ()) && nums [i] + nums [j] == target , ensures (0 <= r . 0 && r . 0 < r . 1 && r . 1 < nums . len ()) && nums [r . 0 as int] + nums [r . 1 as int] == target , forall | ii : int , jj : int | ((0 <= ii && ii < r . 0 && ii < jj && jj < nums . len ()) || (ii == r . 0 && ii < jj && jj < r . 1)) ==> nums [ii] + nums [jj] != target ,"},"dependencies":{"main":[],"two_sum":[]},"proof_order":["main","two_sum"],"loop_contexts":[{"condition":"i < n - 1","reads":["i","ii","j","jj","n","nums","target"],"writes":["j"],"arrays":["nums"],"invariants":["true","nums . len () > 1","forall | ii : int , jj : int | ((0 <= ii && ii < nums . len () && ii < jj && jj < nums . len ())) ==> nums [ii] + nums [jj] < 256","exists | i : int , j : int | (0 <= i && i < j && j < nums . len ()) && nums [i] + nums [j] == target","i <= n - 1"]},{"condition":"j < n","reads":["i","j","nums","target"],"writes":[],"arrays":["nums"],"invariants":["true","nums . len () > 1","forall | ii : int , jj : int | ((0 <= ii && ii < nums . len () && ii < jj && jj < nums . len ())) ==> nums [ii] + nums [jj] < 256","exists | i : int , j : int | (0 <= i && i < j && j < nums . len ()) && nums [i] + nums [j] == target","j <= n"]}],"proof_obligations":{"main":[],"two_sum":["(0 <= r . 0 && r . 0 < r . 1 && r . 1 < nums . len ())","nums [r . 0 as int] + nums [r . 1 as int] == target","forall | ii : int , jj : int | ((0 <= ii && ii < r . 0 && ii < jj && jj < nums . len ()) || (ii == r . 0 && ii < jj && jj < r . 1)) ==> nums [ii] + nums [jj] != target"]}}
+FEW-SHOT EXAMPLES:
+
+INPUT:
+use vstd::prelude::*;
+fn main() {}
+verus! {
+fn fun(v: &mut Vec<usize>, a: &mut Vec<usize>, k: usize, N: i32)
+    requires
+        0 < k < 1000,
+        old(v).len() == old(a).len() == N,
+        0 < N < 1000,
+    ensures
+        forall |j:int| 0<= j <v.len() ==> v[j] == k + j,
+{
+
+    let mut i: usize = 0;
+
+    while (i < N as usize)
+    {
+        a.set(i, i);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N as usize)
+    {
+        v.set(i, k + a[i]);
+        i = i + 1;
+    }
+
+}
+}
+
+ANSWER:
+use vstd::prelude::*;
+fn main() {}
+verus! {
+fn fun(v: &mut Vec<usize>, a: &mut Vec<usize>, k: usize, N: i32)
+    requires
+        0 < k < 1000,
+        old(v).len() == old(a).len() == N,
+        0 < N < 1000,
+    ensures
+        forall |j:int| 0<= j <v.len() ==> v[j] == k + j,
+{
+
+    let mut i: usize = 0;
+
+    while (i < N as usize)
+        invariant
+            i <= N,
+            0 < N < 1000,
+            a.len() == N,
+            v.len() == N,
+            forall |j:int| 0<= j < i ==> a[j] == j,
+    {
+        a.set(i, i);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N as usize)
+        invariant
+            0 < k < 1000,
+            v.len() == N,
+            a.len() == N,
+            forall |j:int| 0<= j < N ==> a[j] == j,
+            forall |j:int| 0<= j <i ==> v[j] == k + j,
+    {
+        v.set(i, k + a[i]);
+        i = i + 1;
+    }
+
+}
+}
+
+
+INPUT:
+
+use vstd::prelude::*;
+fn main() {}
+
+verus!{
+
+    pub fn myfun4(x: &Vec<u64>, y: &mut Vec<u64>)
+        requires
+            old(y).len() == 0,
+        ensures
+            y@ == x@.filter(|k: u64| true),
+    {
+
+        let mut i: usize = 0;
+
+        while (i < x.len())
+        {
+
+            y.push(x[i]);
+            i = i + 1;
+        }
+
+    }
+}
+
+ANSWER:
+
+use vstd::prelude::*;
+fn main() {}
+
+verus!{
+
+    proof fn lemma_seq_subrange_ascend<T>(v: Seq<T>, i: int, j: int)
+        requires
+            0<= i < j <= v.len(),
+        ensures
+            v.subrange(i as int, j as int).drop_last() == v.subrange(i as int, j-1 ),
+    {
+        assert(v.subrange(i as int, j as int).drop_last() =~= v.subrange(i as int, j-1));
+    }
+
+    proof fn lemma_seq_subrange_all<T>(v: Seq<T>)
+        ensures
+            v == v.subrange(0, v.len() as int),
+    {
+        assert(v =~= v.subrange(0, v.len() as int));
+    }
+
+    #[verifier::loop_isolation(false)]
+
+    pub fn myfun4(x: &Vec<u64>, y: &mut Vec<u64>)
+        requires
+            old(y).len() == 0,
+        ensures
+            y@ == x@.filter(|k: u64| true),
+    {
+        proof {
+            reveal(Seq::filter);
+        }
+
+        let mut i: usize = 0;
+
+        assert(y@ == x@.subrange(0, (i) as int).filter(|k: u64| true));
+
+        while (i < x.len())
+            invariant
+                i <= x.len(),
+                y@ == x@.subrange(0, (i) as int).filter(|k: u64| true),
+        {
+
+            y.push(x[i]);
+            i = i + 1;
+
+            proof {
+                lemma_seq_subrange_ascend(x@, 0, i as int);
+            }
+        }
+
+        proof {
+            lemma_seq_subrange_all(x@);
+        }
+    }
+}
+
+
+INPUT:
+use vstd::prelude::*;
+fn main() {}
+verus!{
+pub fn myfun(a: &mut Vec<usize>, N: usize)
+    requires
+        N < 100,
+        old(a).len() == N,
+    ensures
+        forall |k:int| 0 <= k < N ==> a[k] == 2,
+{
+    let mut i: usize = 0;
+
+    while (i < N)
+    {
+        a.set(i, 0);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N)
+    {
+        a.set(i, a[i] + 2);
+        i = i + 1;
+    }
+}
+}
+
+ANSWER:
+use vstd::prelude::*;
+fn main() {}
+verus!{
+pub fn myfun(a: &mut Vec<usize>, N: usize)
+    requires
+        N < 100,
+        old(a).len() == N,
+    ensures
+        forall |k:int| 0 <= k < N ==> a[k] == 2,
+{
+    let mut i: usize = 0;
+
+    while (i < N)
+        invariant
+            N < 100,
+            i <= N,
+            a.len() == N,
+            forall |k:int| 0 <= k < i ==> a[k] == 0,
+    {
+        a.set(i, 0);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N)
+        invariant
+            i <= N,
+            a.len() == N,
+            N < 100,
+            forall |k:int| 0 <= k < i ==> a[k] == 2, //to support function post-condition
+            forall |k:int| i <= k < N ==> a[k] == 0,
+    {
+        a.set(i, a[i] + 2);
+        i = i + 1;
+    }
+}
+}
+
+
+REFERENCE ex1.rs:
+## `Seq` Usage
+
+1. Basic Structure and Properties:
+    - Seq<A> has a length (len) and values at each index (index or [] operator).
+    - The structure uses marker::PhantomData<A> to hold the type without storing actual data.
+
+2. Construction Methods:
+    - Empty Sequence: Seq::empty creates an empty sequence.
+    - New Sequence: Seq::new(len, f) creates a sequence of specified length initialized with a function mapping indices to values.
+    - Macro: seq! macro allows creating small sequences similar to std::vec!.
+
+3. Manipulation Methods:
+    - Push: Seq::push appends a value to the end of the sequence.
+    - Update: Seq::update replaces the value at a specified index, leaving others unchanged.
+    - Add: Seq::add concatenates two sequences.
+    - Subrange: Seq::subrange creates a subsequence from a specified range.
+    - Take: Seq::take returns the first n elements of the sequence.
+    - Skip: Seq::skip returns the sequence excluding the first n elements.
+
+4. Access Methods:
+    - Length: Seq::len returns the length of the sequence.
+    - Index: Seq::index returns the value at a given index, with a requirement to be within bounds.
+    - First Element: Seq::first returns the first element.
+    - Last Element: Seq::last returns the last element.
+
+5. Equality and Comparison:
+    - Extensional Equality: The operator =~= is used to prove two sequences are equal.
+    - Deep Equality: The operator =~~= is for deep equality checks.
+
+## Example Usage
+
+1. Basic Structure and Properties:
+```use vstd::seq::*;
+use vstd::seq_lib::*;
+
+proof fn test_seq() {
+    let s1 = Seq::new(5, |i: int| 10 * i);
+    assert(s1.len() == 5);
+    assert(s1.index(3) == 30);
+    let s2 = Seq::<int>::empty().push(0).push(10).push(20).push(30).push(40);
+    assert(s1 =~= s2);
+    assert(s1 === s2);
+}
+```
+2. Construction Methods:
+    - Empty Sequence:
+        ```
+        let empty_seq = Seq::<int>::empty();
+        assert(empty_seq.len() == 0);
+        ```
+    - New Sequence:
+        ```
+        let s1 = Seq::new(5, |i: int| 10 * i);
+        assert(s1.len() == 5);
+        assert(s1.index(3) == 30);
+        ```
+    - Macro:
+        ```
+        let seq_macro = seq![10, 20, 30, 40];
+        assert(seq_macro.len() == 4);
+        assert(seq_macro.index(2) == 30);
+        ```
+3. Manipulation Methods:
+    - Push:
+        ```
+        let mut seq_push = Seq::<int>::empty();
+        seq_push = seq_push.push(10);
+        seq_push = seq_push.push(20);
+        assert(seq_push.len() == 2);
+        assert(seq_push.index(1) == 20);
+        ```
+    - Update:
+        ```
+        let mut seq_update = Seq::new(3, |i: int| 10 * i);
+        seq_update = seq_update.update(1, 25);
+        assert(seq_update.index(1) == 25);
+        ```
+    - Add:
+        ```
+        let seq1 = Seq::new(3, |i: int| 10 * i);
+        let seq2 = Seq::new(2, |i: int| 20 * i);
+        let seq_add = seq1.add(seq2);
+        assert(seq_add.len() == 5);
+        assert(seq_add.index(3) == 0); // Value from seq2
+        ```
+    - Subrange:
+        ```
+        let seq_subrange = Seq::new(5, |i: int| 10 * i).subrange(1, 3);
+        assert(seq_subrange.len() == 2);
+        assert(seq_subrange.index(0) == 10);
+        assert(seq_subrange.index(1) == 20);
+        ```
+    - Take:
+        ```
+        let seq_take = Seq::new(5, |i: int| 10 * i).take(3);
+        assert(seq_take.len() == 3);
+        assert(seq_take.index(2) == 20);
+        ```
+    - Skip:
+        ```
+        let seq_skip = Seq::new(5, |i: int| 10 * i).skip(2);
+        assert(seq_skip.len() == 3);
+        assert(seq_skip.index(0) == 20);
+        ```
+4. Access Methods:
+    - Length:
+        ```
+        let seq_len = Seq::new(4, |i: int| 5 * i);
+        assert(seq_len.len() == 4);
+        ```
+    - Index:
+        ```
+        let seq_index = Seq::new(4, |i: int| 5 * i);
+        assert(seq_index.index(2) == 10);
+        ```
+    - First Element:
+        ```
+        let seq_first = Seq::new(4, |i: int| 5 * i);
+        assert(seq_first.first() == 0);
+        ```
+    - Last Element:
+        ```
+        let seq_last = Seq::new(4, |i: int| 5 * i);
+        assert(seq_last.last() == 15);
+        ```
+5. Equality and Comparison:
+    - Extensional Equality:
+        ```
+        let s1 = Seq::new(5, |i: int| 10 * i);
+        let s2 = Seq::<int>::empty().push(0).push(10).push(20).push(30).push(40);
+        assert(s1 =~= s2);
+        ```
+    - Deep Equality:
+        ```
+        let s1 = Seq::new(5, |i: int| 10 * i);
+        let s2 = Seq::<int>::empty().push(0).push(10).push(20).push(30).push(40);
+        assert(s1 === s2);
+        ```
+
+CURRENT PROGRAM:
+vstd::prelude::verus! {
+    use vstd::prelude::*;
+
+    fn main() {}
+
+    fn two_sum(nums: & Vec < u32 >, target: u32) -> (r: (usize, usize))
+        requires
+            nums.len() > 1,
+            forall | ii: int,
+            jj: int |((0 <= ii && ii < nums.len() && ii < jj && jj < nums.len())) ==> nums[ii] + nums[jj] < 256,
+            exists | i: int,
+            j: int |(0 <= i && i < j && j < nums.len()) && nums[i] + nums[j] == target,
+        ensures
+            (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,
+            forall | ii: int,
+            jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,
+    {
+        let n = nums.len();
+        let mut i = 0;
+        let mut j = 1;
+        while i < n - 1
+            invariant
+                true,
+                nums.len() > 1,
+                forall | ii: int,
+                jj: int |((0 <= ii && ii < nums.len() && ii < jj && jj < nums.len())) ==> nums[ii] + nums[jj] < 256,
+                exists | i: int,
+                j: int |(0 <= i && i < j && j < nums.len()) && nums[i] + nums[j] == target,
+                i <= n - 1
+            decreases
+                n - 1 - i,
+        {
+            j = i + 1;
+            while j < n
+                invariant
+                    true,
+                    nums.len() > 1,
+                    forall | ii: int,
+                    jj: int |((0 <= ii && ii < nums.len() && ii < jj && jj < nums.len())) ==> nums[ii] + nums[jj] < 256,
+                    exists | i: int,
+                    j: int |(0 <= i && i < j && j < nums.len()) && nums[i] + nums[j] == target,
+                    j <= n
+                decreases
+                    n - j,
+            {
+                if nums[i] + nums[j] == target {
+                    return(i, j);
+                }
+                j += 1;
+            }
+            i += 1;
+        }
+        (i, j)
+    }
+}
+
+VERIFIER FEEDBACK:
+Score: Score { verified: 2, errors: 2, compilation_error: false, diagnostics: 7 }
+Diagnostics:
+error: postcondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:14:13
+   |
+14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+47 |                     return(i, j);
+   |                     ------------ at this exit
+
+
+error: postcondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:14:13
+   |
+14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+53 |         (i, j)
+   |         ------ at the end of the function body
+
+
+error: postcondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:15:13
+   |
+15 | / ...   forall | ii: int,
+16 | | ...   jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,
+   | |___________________________________________________________________________________________________________________________________________^ failed this postcondition
+...
+47 |   ...           return(i, j);
+   |                 ------------ at this exit
+
+
+error: postcondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:15:13
+   |
+15 | / ...       forall | ii: int,
+16 | | ...       jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,
+   | |_______________________________________________________________________________________________________________________________________________^ failed this postcondition
+...
+53 |   ...   (i, j)
+   |         ------ at the end of the function body
+
+
+error: precondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:46:20
+   |
+46 |                 if nums[i] + nums[j] == target {
+   |                    ^^^^^^^
+   |
+  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:53:9
+   |
+53 |         i < vec.view().len(),
+   |         -------------------- failed precondition
+
+
+error: possible arithmetic underflow/overflow
+  --> /tmp/verusseek_DVgEDw.rs:46:20
+   |
+46 |                 if nums[i] + nums[j] == target {
+   |                    ^^^^^^^^^^^^^^^^^
+
+
+error: precondition not satisfied
+  --> /tmp/verusseek_DVgEDw.rs:46:30
+   |
+46 |                 if nums[i] + nums[j] == target {
+   |                              ^^^^^^^
+   |
+  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:53:9
+   |
+53 |         i < vec.view().len(),
+   |         -------------------- failed precondition
+
+
+Raw verifier output:
+{"$message_type":"diagnostic","message":"while loop: not all errors may have been reported; rerun with a higher value for --multiple-errors to find other potential errors in this function","code":null,"level":"note","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1322,"byte_end":1333,"line_start":34,"line_end":34,"column_start":13,"column_end":24,"is_primary":true,"text":[{"text":"            while j < n","highlight_start":13,"highlight_end":24}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":{"span":{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1322,"byte_end":1946,"line_start":34,"line_end":50,"column_start":13,"column_end":14,"is_primary":false,"text":[{"text":"            while j < n","highlight_start":13,"highlight_end":24},{"text":"                invariant","highlight_start":1,"highlight_end":26},{"text":"                    true,","highlight_start":1,"highlight_end":26},{"text":"                    nums.len() > 1,","highlight_start":1,"highlight_end":36},{"text":"                    forall | ii: int,","highlight_start":1,"highlight_end":38},{"text":"                    jj: int |((0 <= ii && ii < nums.len() && ii < jj && jj < nums.len())) ==> nums[ii] + nums[jj] < 256,","highlight_start":1,"highlight_end":121},{"text":"                    exists | i: int,","highlight_start":1,"highlight_end":37},{"text":"                    j: int |(0 <= i && i < j && j < nums.len()) && nums[i] + nums[j] == target,","highlight_start":1,"highlight_end":96},{"text":"                    j <= n","highlight_start":1,"highlight_end":27},{"text":"                decreases","highlight_start":1,"highlight_end":26},{"text":"                    n - j,","highlight_start":1,"highlight_end":27},{"text":"            {","highlight_start":1,"highlight_end":14},{"text":"                if nums[i] + nums[j] == target {","highlight_start":1,"highlight_end":49},{"text":"                    return(i, j);","highlight_start":1,"highlight_end":34},{"text":"                }","highlight_start":1,"highlight_end":18},{"text":"                j += 1;","highlight_start":1,"highlight_end":24},{"text":"            }","highlight_start":1,"highlight_end":14}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null},"macro_decl_name":"desugaring of `while` loop","def_site_span":{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":0,"byte_end":0,"line_start":1,"line_end":1,"column_start":1,"column_end":1,"is_primary":false,"text":[],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}}}],"children":[],"rendered":"note: while loop: not all errors may have been reported; rerun with a higher value for --multiple-errors to find other potential errors in this function\n  --> /tmp/verusseek_DVgEDw.rs:34:13\n   |\n34 |             while j < n\n   |             ^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1877,"byte_end":1889,"line_start":47,"line_end":47,"column_start":21,"column_end":33,"is_primary":false,"text":[{"text":"                    return(i, j);","highlight_start":21,"highlight_end":33}],"label":"at this exit","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":474,"byte_end":566,"line_start":14,"line_end":14,"column_start":13,"column_end":105,"is_primary":true,"text":[{"text":"            (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,","highlight_start":13,"highlight_end":105}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:14:13\n   |\n14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n47 |                     return(i, j);\n   |                     ------------ at this exit\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1985,"byte_end":1991,"line_start":53,"line_end":53,"column_start":9,"column_end":15,"is_primary":false,"text":[{"text":"        (i, j)","highlight_start":9,"highlight_end":15}],"label":"at the end of the function body","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":474,"byte_end":566,"line_start":14,"line_end":14,"column_start":13,"column_end":105,"is_primary":true,"text":[{"text":"            (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,","highlight_start":13,"highlight_end":105}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:14:13\n   |\n14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n53 |         (i, j)\n   |         ------ at the end of the function body\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1877,"byte_end":1889,"line_start":47,"line_end":47,"column_start":21,"column_end":33,"is_primary":false,"text":[{"text":"                    return(i, j);","highlight_start":21,"highlight_end":33}],"label":"at this exit","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":580,"byte_end":743,"line_start":15,"line_end":16,"column_start":13,"column_end":146,"is_primary":true,"text":[{"text":"            forall | ii: int,","highlight_start":13,"highlight_end":30},{"text":"            jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,","highlight_start":1,"highlight_end":146}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:15:13\n   |\n15 | / ...   forall | ii: int,\n16 | | ...   jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,\n   | |___________________________________________________________________________________________________________________________________________^ failed this postcondition\n...\n47 |   ...           return(i, j);\n   |                 ------------ at this exit\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1985,"byte_end":1991,"line_start":53,"line_end":53,"column_start":9,"column_end":15,"is_primary":false,"text":[{"text":"        (i, j)","highlight_start":9,"highlight_end":15}],"label":"at the end of the function body","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":580,"byte_end":743,"line_start":15,"line_end":16,"column_start":13,"column_end":146,"is_primary":true,"text":[{"text":"            forall | ii: int,","highlight_start":13,"highlight_end":30},{"text":"            jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,","highlight_start":1,"highlight_end":146}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:15:13\n   |\n15 | / ...       forall | ii: int,\n16 | | ...       jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,\n   | |_______________________________________________________________________________________________________________________________________________^ failed this postcondition\n...\n53 |   ...   (i, j)\n   |         ------ at the end of the function body\n\n"}
+{"$message_type":"diagnostic","message":"recommendation not met","code":null,"level":"note","spans":[{"file_name":"/home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs","byte_start":622,"byte_end":648,"line_start":24,"line_end":24,"column_start":13,"column_end":39,"is_primary":false,"text":[{"text":"            0 <= i < self.view().len(),","highlight_start":13,"highlight_end":39}],"label":"recommendation not met","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":714,"byte_end":722,"line_start":16,"line_end":16,"column_start":117,"column_end":125,"is_primary":true,"text":[{"text":"            jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,","highlight_start":117,"highlight_end":125}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"note: recommendation not met\n  --> /tmp/verusseek_DVgEDw.rs:16:117\n   |\n16 | ...   jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,\n   |                                                                                                               ^^^^^^^^\n   |\n  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:24:13\n   |\n24 |             0 <= i < self.view().len(),\n   |             -------------------------- recommendation not met\n\n"}
+{"$message_type":"diagnostic","message":"recommendation not met","code":null,"level":"note","spans":[{"file_name":"/home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs","byte_start":622,"byte_end":648,"line_start":24,"line_end":24,"column_start":13,"column_end":39,"is_primary":false,"text":[{"text":"            0 <= i < self.view().len(),","highlight_start":13,"highlight_end":39}],"label":"recommendation not met","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":725,"byte_end":733,"line_start":16,"line_end":16,"column_start":128,"column_end":136,"is_primary":true,"text":[{"text":"            jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,","highlight_start":128,"highlight_end":136}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"note: recommendation not met\n  --> /tmp/verusseek_DVgEDw.rs:16:128\n   |\n16 | ...   jj: int |((0 <= ii && ii < r.0 && ii < jj && jj < nums.len()) ||(ii == r.0 && ii < jj && jj < r.1)) ==> nums[ii] + nums[jj] != target,\n   |                                                                                                                          ^^^^^^^^\n   |\n  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:24:13\n   |\n24 |             0 <= i < self.view().len(),\n   |             -------------------------- recommendation not met\n\n"}
+{"$message_type":"diagnostic","message":"precondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs","byte_start":1770,"byte_end":1790,"line_start":53,"line_end":53,"column_start":9,"column_end":29,"is_primary":false,"text":[{"text":"        i < vec.view().len(),","highlight_start":9,"highlight_end":29}],"label":"failed precondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1827,"byte_end":1834,"line_start":46,"line_end":46,"column_start":20,"column_end":27,"is_primary":true,"text":[{"text":"                if nums[i] + nums[j] == target {","highlight_start":20,"highlight_end":27}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: precondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:46:20\n   |\n46 |                 if nums[i] + nums[j] == target {\n   |                    ^^^^^^^\n   |\n  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:53:9\n   |\n53 |         i < vec.view().len(),\n   |         -------------------- failed precondition\n\n"}
+{"$message_type":"diagnostic","message":"possible arithmetic underflow/overflow","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1827,"byte_end":1844,"line_start":46,"line_end":46,"column_start":20,"column_end":37,"is_primary":true,"text":[{"text":"                if nums[i] + nums[j] == target {","highlight_start":20,"highlight_end":37}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: possible arithmetic underflow/overflow\n  --> /tmp/verusseek_DVgEDw.rs:46:20\n   |\n46 |                 if nums[i] + nums[j] == target {\n   |                    ^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"precondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs","byte_start":1770,"byte_end":1790,"line_start":53,"line_end":53,"column_start":9,"column_end":29,"is_primary":false,"text":[{"text":"        i < vec.view().len(),","highlight_start":9,"highlight_end":29}],"label":"failed precondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_DVgEDw.rs","byte_start":1837,"byte_end":1844,"line_start":46,"line_end":46,"column_start":30,"column_end":37,"is_primary":true,"text":[{"text":"                if nums[i] + nums[j] == target {","highlight_start":30,"highlight_end":37}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: precondition not satisfied\n  --> /tmp/verusseek_DVgEDw.rs:46:30\n   |\n46 |                 if nums[i] + nums[j] == target {\n   |                              ^^^^^^^\n   |\n  ::: /home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/vstd/std_specs/vec.rs:53:9\n   |\n53 |         i < vec.view().len(),\n   |         -------------------- failed precondition\n\n"}
+{"$message_type":"diagnostic","message":"aborting due to 7 previous errors","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 7 previous errors\n\n"}
+
+
+Return the complete program; preserve imports, executable statements and contracts.

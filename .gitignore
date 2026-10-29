@@ -5,4 +5,10 @@ nul
 
 /rust/target/
 /rust/runs/
-/results/
+/results/*
+!/results/README.md
+!/results/20261027-170046-clover/
+!/results/20261029-230856-array_append_strong/
+!/results/20261030-000407-develop/
+
+/.local/

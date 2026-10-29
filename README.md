@@ -31,26 +31,32 @@ VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具
 
 ## 📦 Setup
 
-所有命令默认在仓库根目录执行。
-
-| 依赖 | 要求与用途 |
-| --- | --- |
-| Rust / Cargo | 建议 Rust 1.91；TUI 依赖要求 Rust 1.88 或更新版本 |
-| Verus | 安装与主机架构匹配的版本，设置 `VERUS_PATH` 或加入 `PATH` |
-| Verus 所需 Rust 工具链、Z3、vstd | 按所用 Verus 发布包说明配置 |
-| curl | 仅在线模型调用需要 |
-| date | 默认结果目录的时间戳生成需要 |
-| 模型 API | 仅在线生成需要，使用兼容的 Chat Completions 接口 |
-
-已验证的开发环境：Linux ARM64、Rust 1.91.0、Verus `0.2026.01.02.6f52890`。Verus 安装参考[官方仓库](https://github.com/verus-lang/verus)。
+在仓库根目录执行，一键安装依赖、配置 Rust 和 Verus、构建并启动：
 
 ```bash
-export VERUS_PATH=/absolute/path/to/verus
-cargo build --locked -p verusseek-rs
-cargo run --locked -p verusseek-rs -- --help
+bash scripts/setup.sh --run
 ```
 
-首次构建需要下载 Cargo 依赖；依赖准备好后可使用 `--offline`。本开发机可选执行 `source scripts/env-rust-local.sh` 复用本机工具链。
+支持 Linux x86_64 / ARM64、macOS Intel / Apple Silicon；Windows 使用 WSL2。缺少系统依赖时使用 apt、dnf、pacman 或 Homebrew 安装，可能需要管理员密码。首次安装需要网络；macOS 需先安装 Homebrew 和 Xcode Command Line Tools。
+
+脚本配置 Rust 1.91.0，优先复用 `VERUS_PATH` 或 PATH 中已有的 Verus，否则自动下载固定版本源码并构建匹配本机架构的 Verus、Z3 和 vstd。源码安装首次耗时较长，后续运行复用已有安装。下载与环境文件保存在 `.local/`，不修改 shell 启动配置。
+
+```bash
+# 只配置和构建，不启动页面
+bash scripts/setup.sh
+
+# 使用已安装的 Verus
+bash scripts/setup.sh --verus /absolute/path/to/verus
+
+# 后续启动；也可传入 benchmark、verify 等子命令
+bash scripts/run.sh
+bash scripts/run.sh benchmark --name clover --limit 3
+
+# 使用下面的原始 Cargo 命令前加载环境
+source scripts/env-rust-local.sh
+```
+
+模型生成仍需配置 API，见下文“配置模型服务”。一键配置的最后一步运行本地 Verus 用例，不需要 API 密钥。
 
 <a id="usage"></a>
 
@@ -132,6 +138,14 @@ cargo run --locked -p verusseek-rs -- benchmark --name clover --limit 3
 标准配置为 [rust/config.benchmark.json](rust/config.benchmark.json)：最多 3 个阶段，每阶段 3 轮生成、每轮请求最多 5 个候选；DeepSeek 接口适配为每轮 1 个候选。每题最多 96 次模型请求、512 次验证，输出额度固定为 8192 token；通过后提前结束。截断候选被丢弃，连续 3 次空截断停止该题，不自动提高 token 额度。自然语言入口的 `--attempts` 控制 Rust 生成和规约适配尝试，证明阶段仍受总体请求预算约束。
 
 ### 5. 查看输出
+
+仓库提供三份[运行结果展示](results/README.md)：
+
+| 场景 | 结果 | 查看 |
+| --- | --- | --- |
+| Clover benchmark | 10 / 11 题验证通过 | [汇总](results/20261027-170046-clover/summary.json) |
+| 单文件证明 | array_append_strong 验证通过 | [代码](results/20261029-230856-array_append_strong/verified.rs) |
+| 自然语言开发 | Rust 编译与 Verus 验证通过 | [Rust](results/20261030-000407-develop/implementation.rs) · [Verus](results/20261030-000407-develop/verified.rs) |
 
 默认输出目录为 `results/YYYYMMDD-HHMMSS-benchmark名/`，自然语言任务使用后缀 `develop`；`--output-dir` 可指定新目录。
 

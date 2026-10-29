@@ -1,0 +1,4 @@
+{
+  "slow_max": "fn slow_max (a : u64 , b : u64) -> (z : u64) ensures z == max (a , b) ,",
+  "spec:max": "spec fn max (x : u64 , y : u64) -> u64 { if x > y { x } else { y } }"
+}

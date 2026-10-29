@@ -1,0 +1,388 @@
+STRATEGY: generation.direct_inference
+## CRITICAL: Generate STRONG and COMPLETE Loop Invariants
+
+Your mission is to add COMPREHENSIVE loop invariants to the given Rust code, if there are loops in the code, so that Verus can verify the given function behaves exactly as described in the specifications.
+
+## IMPORTANT REQUIREMENTS:
+
+1. **For EVERY array read in the loop (e.g., a[k], x[i]):**
+   - Add a SPECIFIC invariant about WHAT VALUE that array element has
+   - Use `forall` quantifier: `forall |k: int| 0 <= k < array.len() ==> ...`
+   - Example: if loop sets `a[i] = 1`, add: `forall |k: int| 0 <= k < i ==> a[k] == 1`
+
+2. **For EVERY array written in the loop (e.g., a.set(...)):**
+   - Track what values are written at what indices
+   - Add invariants about the WRITE pattern
+   - Example: `forall |k: int| i <= k < N ==> old(a)[k] == a[k]`
+
+3. **For EVERY variable modified in the loop:**
+   - Add an invariant about its CURRENT value
+   - Track how it changes with loop index
+
+4. **Copy ALL preconditions into EVERY loop invariant block**
+   - This is CRITICAL for verification success
+
+5. **DO NOT be minimal** - Add MORE invariants rather than fewer
+   - It's better to have redundant invariants than missing ones
+
+Respond with Rust code only, do not include any explanation.
+You should never change or delete existing Rust code, only ADD invariants.
+
+Remember: INCOMPLETE INVARIANTS = VERIFICATION FAILURE = MORE REPAIR STEPS
+Generate STRONG invariants NOW to save time later!
+
+
+## Generate Loop Invariants and Specifications
+
+Your mission is to add appropriate loop invariants to help Verus verify the given function. Focus on what's needed for the specific code pattern.
+
+## Loop Invariants - Key Patterns:
+
+**When the loop modifies an array:**
+- Track modified elements: `forall |k: int| 0 <= k < i ==> a[k] == new_value`
+- Track unmodified elements: `forall |k: int| i <= k < a.len() ==> old(a)[k] == a[k]`
+- Track array length: `a.len() == N` or similar
+
+**When the loop accumulates (sum, count, etc.):**
+- Track the accumulator: `sum == calculated_value(i)` or `sum <= N`
+- Track loop bounds: `0 <= i <= N`
+
+**When the loop searches or filters:**
+- Track search invariants: `forall |k: int| 0 <= k < i ==> !condition(a[k])`
+- Track found state: `found ==> exists |k: int| 0 <= k < i && a[k] == target`
+
+**Always add:**
+- decreases clause: `decreases N - i` (or appropriate termination measure)
+
+## Preconditions - When Needed:
+- Array access safety: `arr.len() > index`
+- Arithmetic overflow: `forall |i: int| 0 <= i < arr.len() ==> arr[i] < LIMIT`
+- Existence for search: `exists |i: int| arr[i] == target`
+
+## Postconditions - When Needed:
+- Length preservation: `result.len() == old(input).len()`
+- Result properties: `forall |i: int| ==> result[i] == f(old(input)[i])`
+- Unmodified elements: `forall |i: int| 0 <= i < arr.len() ==> old(arr)[i] == arr[i]`
+
+## Tips:
+- Use `#[trigger]` annotation when using quantified expressions in postconditions
+- Use `old()` to refer to pre-state values in postconditions and loop invariants
+- Copy relevant preconditions into loop invariants
+- Keep invariants focused on what the loop actually does
+
+Respond with Rust code only, do not include any explanation.
+You should never change or delete existing Rust code, only ADD invariants.
+
+Remember: INCOMPLETE INVARIANTS = VERIFICATION FAILURE = MORE REPAIR STEPS
+Generate STRONG invariants NOW to save time later!
+
+PHASE: 1 / inference
+STATIC ANALYSIS:
+{"functions":["main","divides","is_prime","test_prime"],"calls":["divides","is_prime"],"types":["bool","nat","u64"],"loops":1,"nonlinear":true,"has_break":false,"array_writes":false,"loop_invariants":[["true","1 < candidate","factor <= candidate"]],"contracts":{"divides":"spec fn divides (factor : nat , candidate : nat) -> bool","is_prime":"spec fn is_prime (candidate : nat) -> bool","main":"fn main ()","test_prime":"fn test_prime (candidate : u64) -> (result : bool) requires 1 < candidate , ensures result == is_prime (candidate as nat) ,"},"dependencies":{"divides":[],"is_prime":["divides"],"main":[],"test_prime":[]},"proof_order":["main","divides","is_prime","test_prime"],"loop_contexts":[{"condition":"factor < candidate","reads":["candidate","factor"],"writes":["factor"],"arrays":[],"invariants":["true","1 < candidate","factor <= candidate"]}],"proof_obligations":{"divides":[],"is_prime":[],"main":[],"test_prime":["result == is_prime (candidate as nat)"]}}
+FEW-SHOT EXAMPLES:
+
+INPUT:
+use vstd::prelude::*;
+fn main() {}
+verus! {
+fn fun(v: &mut Vec<usize>, a: &mut Vec<usize>, k: usize, N: i32)
+    requires
+        0 < k < 1000,
+        old(v).len() == old(a).len() == N,
+        0 < N < 1000,
+    ensures
+        forall |j:int| 0<= j <v.len() ==> v[j] == k + j,
+{
+
+    let mut i: usize = 0;
+
+    while (i < N as usize)
+    {
+        a.set(i, i);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N as usize)
+    {
+        v.set(i, k + a[i]);
+        i = i + 1;
+    }
+
+}
+}
+
+ANSWER:
+use vstd::prelude::*;
+fn main() {}
+verus! {
+fn fun(v: &mut Vec<usize>, a: &mut Vec<usize>, k: usize, N: i32)
+    requires
+        0 < k < 1000,
+        old(v).len() == old(a).len() == N,
+        0 < N < 1000,
+    ensures
+        forall |j:int| 0<= j <v.len() ==> v[j] == k + j,
+{
+
+    let mut i: usize = 0;
+
+    while (i < N as usize)
+        invariant
+            i <= N,
+            0 < N < 1000,
+            a.len() == N,
+            v.len() == N,
+            forall |j:int| 0<= j < i ==> a[j] == j,
+    {
+        a.set(i, i);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N as usize)
+        invariant
+            0 < k < 1000,
+            v.len() == N,
+            a.len() == N,
+            forall |j:int| 0<= j < N ==> a[j] == j,
+            forall |j:int| 0<= j <i ==> v[j] == k + j,
+    {
+        v.set(i, k + a[i]);
+        i = i + 1;
+    }
+
+}
+}
+
+
+INPUT:
+
+use vstd::prelude::*;
+fn main() {}
+
+verus!{
+
+    pub fn myfun4(x: &Vec<u64>, y: &mut Vec<u64>)
+        requires
+            old(y).len() == 0,
+        ensures
+            y@ == x@.filter(|k: u64| true),
+    {
+
+        let mut i: usize = 0;
+
+        while (i < x.len())
+        {
+
+            y.push(x[i]);
+            i = i + 1;
+        }
+
+    }
+}
+
+ANSWER:
+
+use vstd::prelude::*;
+fn main() {}
+
+verus!{
+
+    proof fn lemma_seq_subrange_ascend<T>(v: Seq<T>, i: int, j: int)
+        requires
+            0<= i < j <= v.len(),
+        ensures
+            v.subrange(i as int, j as int).drop_last() == v.subrange(i as int, j-1 ),
+    {
+        assert(v.subrange(i as int, j as int).drop_last() =~= v.subrange(i as int, j-1));
+    }
+
+    proof fn lemma_seq_subrange_all<T>(v: Seq<T>)
+        ensures
+            v == v.subrange(0, v.len() as int),
+    {
+        assert(v =~= v.subrange(0, v.len() as int));
+    }
+
+    #[verifier::loop_isolation(false)]
+
+    pub fn myfun4(x: &Vec<u64>, y: &mut Vec<u64>)
+        requires
+            old(y).len() == 0,
+        ensures
+            y@ == x@.filter(|k: u64| true),
+    {
+        proof {
+            reveal(Seq::filter);
+        }
+
+        let mut i: usize = 0;
+
+        assert(y@ == x@.subrange(0, (i) as int).filter(|k: u64| true));
+
+        while (i < x.len())
+            invariant
+                i <= x.len(),
+                y@ == x@.subrange(0, (i) as int).filter(|k: u64| true),
+        {
+
+            y.push(x[i]);
+            i = i + 1;
+
+            proof {
+                lemma_seq_subrange_ascend(x@, 0, i as int);
+            }
+        }
+
+        proof {
+            lemma_seq_subrange_all(x@);
+        }
+    }
+}
+
+
+INPUT:
+use vstd::prelude::*;
+fn main() {}
+verus!{
+pub fn myfun(a: &mut Vec<usize>, N: usize)
+    requires
+        N < 100,
+        old(a).len() == N,
+    ensures
+        forall |k:int| 0 <= k < N ==> a[k] == 2,
+{
+    let mut i: usize = 0;
+
+    while (i < N)
+    {
+        a.set(i, 0);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N)
+    {
+        a.set(i, a[i] + 2);
+        i = i + 1;
+    }
+}
+}
+
+ANSWER:
+use vstd::prelude::*;
+fn main() {}
+verus!{
+pub fn myfun(a: &mut Vec<usize>, N: usize)
+    requires
+        N < 100,
+        old(a).len() == N,
+    ensures
+        forall |k:int| 0 <= k < N ==> a[k] == 2,
+{
+    let mut i: usize = 0;
+
+    while (i < N)
+        invariant
+            N < 100,
+            i <= N,
+            a.len() == N,
+            forall |k:int| 0 <= k < i ==> a[k] == 0,
+    {
+        a.set(i, 0);
+        i = i + 1;
+    }
+
+    i = 0;
+    while (i < N)
+        invariant
+            i <= N,
+            a.len() == N,
+            N < 100,
+            forall |k:int| 0 <= k < i ==> a[k] == 2, //to support function post-condition
+            forall |k:int| i <= k < N ==> a[k] == 0,
+    {
+        a.set(i, a[i] + 2);
+        i = i + 1;
+    }
+}
+}
+
+
+CURRENT PROGRAM:
+vstd::prelude::verus! {
+    use vstd::prelude::*;
+
+    fn main() {}
+
+    spec fn divides(factor: nat, candidate: nat) -> bool {
+        candidate % factor == 0
+    }
+
+    spec fn is_prime(candidate: nat) -> bool {
+        &&& 1 < candidate &&& forall | factor: nat | 1 < factor && factor < candidate ==>!divides(factor, candidate)
+    }
+
+    fn test_prime(candidate: u64) -> (result: bool)
+        requires
+            1 < candidate,
+        ensures
+            result == is_prime(candidate as nat),
+    {
+        let mut factor: u64 = 2;
+        while factor < candidate
+            invariant
+                true,
+                1 < candidate,
+                factor <= candidate
+            decreases
+                candidate - factor,
+        {
+            if candidate % factor == 0 {
+                return false;
+            }
+            factor = factor + 1;
+        }
+        true
+    }
+}
+
+VERIFIER FEEDBACK:
+Score: Score { verified: 1, errors: 2, compilation_error: false, diagnostics: 3 }
+Diagnostics:
+error: postcondition not satisfied
+  --> /tmp/verusseek_BWm7Nt.rs:18:13
+   |
+18 |             result == is_prime(candidate as nat),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+30 |                 return false;
+   |                 ------------ at this exit
+
+
+error: postcondition not satisfied
+  --> /tmp/verusseek_BWm7Nt.rs:18:13
+   |
+18 |             result == is_prime(candidate as nat),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+34 |         true
+   |         ---- at the end of the function body
+
+
+error: possible division by zero
+  --> /tmp/verusseek_BWm7Nt.rs:29:16
+   |
+29 |             if candidate % factor == 0 {
+   |                ^^^^^^^^^^^^^^^^^^
+
+
+Raw verifier output:
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_BWm7Nt.rs","byte_start":808,"byte_end":820,"line_start":30,"line_end":30,"column_start":17,"column_end":29,"is_primary":false,"text":[{"text":"                return false;","highlight_start":17,"highlight_end":29}],"label":"at this exit","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_BWm7Nt.rs","byte_start":462,"byte_end":498,"line_start":18,"line_end":18,"column_start":13,"column_end":49,"is_primary":true,"text":[{"text":"            result == is_prime(candidate as nat),","highlight_start":13,"highlight_end":49}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_BWm7Nt.rs:18:13\n   |\n18 |             result == is_prime(candidate as nat),\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n30 |                 return false;\n   |                 ------------ at this exit\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_BWm7Nt.rs","byte_start":887,"byte_end":891,"line_start":34,"line_end":34,"column_start":9,"column_end":13,"is_primary":false,"text":[{"text":"        true","highlight_start":9,"highlight_end":13}],"label":"at the end of the function body","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_BWm7Nt.rs","byte_start":462,"byte_end":498,"line_start":18,"line_end":18,"column_start":13,"column_end":49,"is_primary":true,"text":[{"text":"            result == is_prime(candidate as nat),","highlight_start":13,"highlight_end":49}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_BWm7Nt.rs:18:13\n   |\n18 |             result == is_prime(candidate as nat),\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n34 |         true\n   |         ---- at the end of the function body\n\n"}
+{"$message_type":"diagnostic","message":"possible division by zero","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_BWm7Nt.rs","byte_start":766,"byte_end":784,"line_start":29,"line_end":29,"column_start":16,"column_end":34,"is_primary":true,"text":[{"text":"            if candidate % factor == 0 {","highlight_start":16,"highlight_end":34}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: possible division by zero\n  --> /tmp/verusseek_BWm7Nt.rs:29:16\n   |\n29 |             if candidate % factor == 0 {\n   |                ^^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"aborting due to 3 previous errors","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 3 previous errors\n\n"}
+
+
+Return the complete program; preserve imports, executable statements and contracts.

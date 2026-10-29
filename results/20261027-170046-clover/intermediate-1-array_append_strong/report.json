@@ -1,0 +1,218 @@
+{
+  "api_base": "https://api.deepseek.com",
+  "best_score": {
+    "compilation_error": false,
+    "diagnostics": 0,
+    "errors": 0,
+    "verified": 3
+  },
+  "config": {
+    "baseline_retries": 25,
+    "candidates": 5,
+    "disabled_refinements": [],
+    "enhanced": true,
+    "examples": "examples",
+    "generation_uniform": false,
+    "houdini_steps": 20,
+    "inference_retries": 3,
+    "inheritance": true,
+    "lemmas": "lemmas",
+    "loop_isolation": true,
+    "max_empty_truncations": 3,
+    "max_requests": 96,
+    "max_tokens": 8192,
+    "max_verifications": 512,
+    "phase1_examples": [
+      "3",
+      "6",
+      "7"
+    ],
+    "phases": 3,
+    "profile": "standard",
+    "ranking": true,
+    "refinement_retries": 3,
+    "repair_candidates": 3,
+    "repair_steps": 10,
+    "repair_uniform": false,
+    "temperature": 1.0,
+    "timeout": 60
+  },
+  "elapsed_ms": 4390,
+  "events": [
+    {
+      "accepted": true,
+      "candidate": "candidate-0.rs",
+      "evaluation": {
+        "diagnostics": [
+          {
+            "kind": "decreases",
+            "lines": [
+              17
+            ],
+            "message": "loop must have a decreases clause",
+            "rendered": "error: loop must have a decreases clause\n  --> /tmp/verusseek_zrGrZu.rs:17:5\n   |\n17 |     while n != len {\n   |     ^^^^^^^^^^^^^^\n   |\n   = help: to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\n\n",
+            "spans": [
+              [
+                17,
+                4,
+                17,
+                18
+              ]
+            ]
+          }
+        ],
+        "process": {
+          "elapsed_ms": 443,
+          "exit_code": 1,
+          "stderr": "{\"$message_type\":\"diagnostic\",\"message\":\"loop must have a decreases clause\",\"code\":null,\"level\":\"error\",\"spans\":[{\"file_name\":\"/tmp/verusseek_zrGrZu.rs\",\"byte_start\":384,\"byte_end\":398,\"line_start\":17,\"line_end\":17,\"column_start\":5,\"column_end\":19,\"is_primary\":true,\"text\":[{\"text\":\"    while n != len {\",\"highlight_start\":5,\"highlight_end\":19}],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":{\"span\":{\"file_name\":\"/tmp/verusseek_zrGrZu.rs\",\"byte_start\":384,\"byte_end\":447,\"line_start\":17,\"line_end\":20,\"column_start\":5,\"column_end\":6,\"is_primary\":false,\"text\":[{\"text\":\"    while n != len {\",\"highlight_start\":5,\"highlight_end\":21},{\"text\":\"        c.push(v[n]);\",\"highlight_start\":1,\"highlight_end\":22},{\"text\":\"        n = n + 1;\",\"highlight_start\":1,\"highlight_end\":19},{\"text\":\"    }\",\"highlight_start\":1,\"highlight_end\":6}],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":null},\"macro_decl_name\":\"desugaring of `while` loop\",\"def_site_span\":{\"file_name\":\"/tmp/verusseek_zrGrZu.rs\",\"byte_start\":0,\"byte_end\":0,\"line_start\":1,\"line_end\":1,\"column_start\":1,\"column_end\":1,\"is_primary\":false,\"text\":[],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":null}}}],\"children\":[{\"message\":\"to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\",\"code\":null,\"level\":\"help\",\"spans\":[],\"children\":[],\"rendered\":null}],\"rendered\":\"error: loop must have a decreases clause\\n  --> /tmp/verusseek_zrGrZu.rs:17:5\\n   |\\n17 |     while n != len {\\n   |     ^^^^^^^^^^^^^^\\n   |\\n   = help: to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\\n\\n\"}\n{\"$message_type\":\"diagnostic\",\"message\":\"aborting due to 1 previous error\",\"code\":null,\"level\":\"error\",\"spans\":[],\"children\":[],\"rendered\":\"error: aborting due to 1 previous error\\n\\n\"}\n",
+          "stdout": "{\n  \"verification-results\": {\n    \"encountered-error\": true,\n    \"encountered-vir-error\": true,\n    \"success\": false\n  },\n  \"verus\": {\n    \"profile\": \"release\",\n    \"version\": \"0.2026.01.02.6f52890\",\n    \"platform\": {\n      \"os\": \"linux\",\n      \"arch\": \"aarch64\"\n    },\n    \"toolchain\": \"1.91.0-aarch64-unknown-linux-gnu\",\n    \"commit\": \"6f528900ac664798daff003ab9548325fa1fb8c7\"\n  }\n}\n",
+          "timed_out": false
+        },
+        "score": {
+          "compilation_error": true,
+          "diagnostics": 1,
+          "errors": 999,
+          "verified": 0
+        },
+        "success": false
+      },
+      "phase": 1,
+      "safe": true,
+      "stage": "original"
+    },
+    {
+      "accepted": true,
+      "candidate": "candidate-1.rs",
+      "evaluation": {
+        "diagnostics": [
+          {
+            "kind": "decreases",
+            "lines": [
+              17
+            ],
+            "message": "loop must have a decreases clause",
+            "rendered": "error: loop must have a decreases clause\n  --> /tmp/verusseek_SImavy.rs:17:9\n   |\n17 |         while n != len\n   |         ^^^^^^^^^^^^^^\n   |\n   = help: to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\n\n",
+            "spans": [
+              [
+                17,
+                8,
+                17,
+                22
+              ]
+            ]
+          }
+        ],
+        "process": {
+          "elapsed_ms": 445,
+          "exit_code": 1,
+          "stderr": "{\"$message_type\":\"diagnostic\",\"message\":\"loop must have a decreases clause\",\"code\":null,\"level\":\"error\",\"spans\":[{\"file_name\":\"/tmp/verusseek_SImavy.rs\",\"byte_start\":467,\"byte_end\":481,\"line_start\":17,\"line_end\":17,\"column_start\":9,\"column_end\":23,\"is_primary\":true,\"text\":[{\"text\":\"        while n != len\",\"highlight_start\":9,\"highlight_end\":23}],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":{\"span\":{\"file_name\":\"/tmp/verusseek_SImavy.rs\",\"byte_start\":467,\"byte_end\":625,\"line_start\":17,\"line_end\":24,\"column_start\":9,\"column_end\":10,\"is_primary\":false,\"text\":[{\"text\":\"        while n != len\",\"highlight_start\":9,\"highlight_end\":23},{\"text\":\"            invariant\",\"highlight_start\":1,\"highlight_end\":22},{\"text\":\"                true,\",\"highlight_start\":1,\"highlight_end\":22},{\"text\":\"                v.len() <= 100\",\"highlight_start\":1,\"highlight_end\":31},{\"text\":\"        {\",\"highlight_start\":1,\"highlight_end\":10},{\"text\":\"            c.push(v[n]);\",\"highlight_start\":1,\"highlight_end\":26},{\"text\":\"            n = n + 1;\",\"highlight_start\":1,\"highlight_end\":23},{\"text\":\"        }\",\"highlight_start\":1,\"highlight_end\":10}],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":null},\"macro_decl_name\":\"desugaring of `while` loop\",\"def_site_span\":{\"file_name\":\"/tmp/verusseek_SImavy.rs\",\"byte_start\":0,\"byte_end\":0,\"line_start\":1,\"line_end\":1,\"column_start\":1,\"column_end\":1,\"is_primary\":false,\"text\":[],\"label\":null,\"suggested_replacement\":null,\"suggestion_applicability\":null,\"expansion\":null}}}],\"children\":[{\"message\":\"to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\",\"code\":null,\"level\":\"help\",\"spans\":[],\"children\":[],\"rendered\":null}],\"rendered\":\"error: loop must have a decreases clause\\n  --> /tmp/verusseek_SImavy.rs:17:9\\n   |\\n17 |         while n != len\\n   |         ^^^^^^^^^^^^^^\\n   |\\n   = help: to disable this check, use #[verifier::exec_allows_no_decreases_clause] on the function\\n\\n\"}\n{\"$message_type\":\"diagnostic\",\"message\":\"aborting due to 1 previous error\",\"code\":null,\"level\":\"error\",\"spans\":[],\"children\":[],\"rendered\":\"error: aborting due to 1 previous error\\n\\n\"}\n",
+          "stdout": "{\n  \"verification-results\": {\n    \"encountered-error\": true,\n    \"encountered-vir-error\": true,\n    \"success\": false\n  },\n  \"verus\": {\n    \"profile\": \"release\",\n    \"version\": \"0.2026.01.02.6f52890\",\n    \"platform\": {\n      \"os\": \"linux\",\n      \"arch\": \"aarch64\"\n    },\n    \"toolchain\": \"1.91.0-aarch64-unknown-linux-gnu\",\n    \"commit\": \"6f528900ac664798daff003ab9548325fa1fb8c7\"\n  }\n}\n",
+          "timed_out": false
+        },
+        "score": {
+          "compilation_error": true,
+          "diagnostics": 1,
+          "errors": 999,
+          "verified": 0
+        },
+        "success": false
+      },
+      "phase": 1,
+      "safe": true,
+      "stage": "deterministic_loop_synthesis"
+    },
+    {
+      "candidates": 1,
+      "phase": 1,
+      "round": 0,
+      "stage": "generation_round"
+    },
+    {
+      "choices": 1,
+      "max_tokens": 8192,
+      "phase": 1,
+      "request": 0,
+      "stage": "model_response",
+      "strategy": "generation.direct_inference",
+      "truncated": 0,
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 5109,
+        "requests": 1
+      }
+    },
+    {
+      "accepted": true,
+      "candidate": "0-0.rs",
+      "evaluation": {
+        "diagnostics": [],
+        "process": {
+          "elapsed_ms": 751,
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "{\n  \"verification-results\": {\n    \"encountered-error\": false,\n    \"encountered-vir-error\": false,\n    \"success\": true,\n    \"verified\": 3,\n    \"errors\": 0,\n    \"is-verifying-entire-crate\": true\n  },\n  \"verus\": {\n    \"profile\": \"release\",\n    \"version\": \"0.2026.01.02.6f52890\",\n    \"platform\": {\n      \"os\": \"linux\",\n      \"arch\": \"aarch64\"\n    },\n    \"toolchain\": \"1.91.0-aarch64-unknown-linux-gnu\",\n    \"commit\": \"6f528900ac664798daff003ab9548325fa1fb8c7\"\n  }\n}\n",
+          "timed_out": false
+        },
+        "score": {
+          "compilation_error": false,
+          "diagnostics": 0,
+          "errors": 0,
+          "verified": 3
+        },
+        "success": true
+      },
+      "phase": 1,
+      "safe": true,
+      "stage": "generation.direct_inference"
+    }
+  ],
+  "final_file": "results/20261027-170046-clover/intermediate-1-array_append_strong/final.rs",
+  "final_verification": {
+    "diagnostics": [],
+    "process": {
+      "elapsed_ms": 706,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\n  \"verification-results\": {\n    \"encountered-error\": false,\n    \"encountered-vir-error\": false,\n    \"success\": true,\n    \"verified\": 3,\n    \"errors\": 0,\n    \"is-verifying-entire-crate\": true\n  },\n  \"verus\": {\n    \"profile\": \"release\",\n    \"version\": \"0.2026.01.02.6f52890\",\n    \"platform\": {\n      \"os\": \"linux\",\n      \"arch\": \"aarch64\"\n    },\n    \"toolchain\": \"1.91.0-aarch64-unknown-linux-gnu\",\n    \"commit\": \"6f528900ac664798daff003ab9548325fa1fb8c7\"\n  }\n}\n",
+      "timed_out": false
+    },
+    "score": {
+      "compilation_error": false,
+      "diagnostics": 0,
+      "errors": 0,
+      "verified": 3
+    },
+    "success": true
+  },
+  "mode": "live",
+  "model": "deepseek-flash",
+  "phases": [
+    {
+      "directory": "results/20261027-170046-clover/intermediate-1-array_append_strong",
+      "inheritance": true,
+      "input": "phase-1-start.rs",
+      "output": "results/20261027-170046-clover/1-array_append_strong.rs",
+      "phase": 1,
+      "starting_score": {
+        "compilation_error": true,
+        "diagnostics": 1,
+        "errors": 999,
+        "verified": 0
+      }
+    }
+  ],
+  "requests": 1,
+  "result_file": "results/20261027-170046-clover/1-array_append_strong.rs",
+  "safe": true,
+  "schema_version": 2,
+  "scope": "whole-program AST preservation; original specifications are trusted",
+  "status": "verified",
+  "usage": {
+    "completion_tokens": 256,
+    "prompt_tokens": 5109,
+    "requests": 1
+  },
+  "verification_cache_hits": 0,
+  "verifications": 4,
+  "verified": true
+}

@@ -1,0 +1,394 @@
+{
+  "benchmark": "clover",
+  "completed": true,
+  "config": {
+    "baseline_retries": 25,
+    "candidates": 5,
+    "disabled_refinements": [],
+    "enhanced": true,
+    "examples": "examples",
+    "generation_uniform": false,
+    "houdini_steps": 20,
+    "inference_retries": 3,
+    "inheritance": true,
+    "lemmas": "lemmas",
+    "loop_isolation": true,
+    "max_empty_truncations": 3,
+    "max_requests": 96,
+    "max_tokens": 8192,
+    "max_verifications": 512,
+    "phase1_examples": [
+      "3",
+      "6",
+      "7"
+    ],
+    "phases": 3,
+    "profile": "standard",
+    "ranking": true,
+    "refinement_retries": 3,
+    "repair_candidates": 3,
+    "repair_steps": 10,
+    "repair_uniform": false,
+    "temperature": 1.0,
+    "timeout": 60
+  },
+  "counts": {
+    "exhausted": 1,
+    "verified": 10
+  },
+  "elapsed_ms": 391149,
+  "mode": "live",
+  "model": "deepseek-flash",
+  "processed": 11,
+  "schema_version": 2,
+  "tasks": [
+    {
+      "directory": "intermediate-1-all_digits_strong",
+      "input": "all_digits_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-all_digits_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-all_digits_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        },
+        {
+          "directory": "results/20261027-170046-clover/intermediate-2-all_digits_strong",
+          "inheritance": true,
+          "input": "phase-2-start.rs",
+          "output": "results/20261027-170046-clover/2-all_digits_strong.rs",
+          "phase": 2,
+          "starting_score": {
+            "compilation_error": false,
+            "diagnostics": 1,
+            "errors": 1,
+            "verified": 2
+          }
+        },
+        {
+          "directory": "results/20261027-170046-clover/intermediate-3-all_digits_strong",
+          "inheritance": true,
+          "input": "phase-3-start.rs",
+          "output": "results/20261027-170046-clover/3-all_digits_strong.rs",
+          "phase": 3,
+          "starting_score": {
+            "compilation_error": false,
+            "diagnostics": 2,
+            "errors": 1,
+            "verified": 3
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 96,
+      "result": "3-all_digits_strong.rs",
+      "status": "exhausted",
+      "usage": {
+        "completion_tokens": 63444,
+        "prompt_tokens": 768211,
+        "requests": 96
+      },
+      "verified": false
+    },
+    {
+      "directory": "intermediate-1-array_append_strong",
+      "input": "array_append_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-array_append_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-array_append_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-array_append_strong.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 256,
+        "prompt_tokens": 5109,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-array_concat_strong",
+      "input": "array_concat_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-array_concat_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-array_concat_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-array_concat_strong.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 360,
+        "prompt_tokens": 5309,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-array_copy_strong",
+      "input": "array_copy_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-array_copy_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-array_copy_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-array_copy_strong.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 225,
+        "prompt_tokens": 5067,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-array_product_strong",
+      "input": "array_product_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-array_product_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-array_product_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-array_product_strong.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 356,
+        "prompt_tokens": 5428,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-array_sum_strong",
+      "input": "array_sum_strong.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-array_sum_strong",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-array_sum_strong.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-array_sum_strong.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 352,
+        "prompt_tokens": 5423,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-binary_search",
+      "input": "binary_search.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-binary_search",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-binary_search.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 2,
+      "result": "1-binary_search.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 699,
+        "prompt_tokens": 10909,
+        "requests": 2
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-cal_div",
+      "input": "cal_div.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-cal_div",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-cal_div.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-cal_div.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 161,
+        "prompt_tokens": 3485,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-is_prime",
+      "input": "is_prime.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-is_prime",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-is_prime.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": false,
+            "diagnostics": 3,
+            "errors": 2,
+            "verified": 1
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-is_prime.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 339,
+        "prompt_tokens": 4091,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-linear_search2",
+      "input": "linear_search2.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-linear_search2",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-linear_search2.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": true,
+            "diagnostics": 1,
+            "errors": 999,
+            "verified": 0
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 1,
+      "result": "1-linear_search2.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 242,
+        "prompt_tokens": 5190,
+        "requests": 1
+      },
+      "verified": true
+    },
+    {
+      "directory": "intermediate-1-two_sum",
+      "input": "two_sum.rs",
+      "phases": [
+        {
+          "directory": "results/20261027-170046-clover/intermediate-1-two_sum",
+          "inheritance": true,
+          "input": "phase-1-start.rs",
+          "output": "results/20261027-170046-clover/1-two_sum.rs",
+          "phase": 1,
+          "starting_score": {
+            "compilation_error": false,
+            "diagnostics": 7,
+            "errors": 2,
+            "verified": 2
+          }
+        }
+      ],
+      "replay_sources": null,
+      "requests": 2,
+      "result": "1-two_sum.rs",
+      "status": "verified",
+      "usage": {
+        "completion_tokens": 1487,
+        "prompt_tokens": 16652,
+        "requests": 2
+      },
+      "verified": true
+    }
+  ],
+  "total": 11,
+  "verified": 10,
+  "verifier": "/home/yuchen/Desktop/VerusSeek/.local/verus/source/target-verus/release/verus"
+}

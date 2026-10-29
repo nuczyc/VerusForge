@@ -1,0 +1,37 @@
+vstd::prelude::verus! {
+    use vstd::prelude::*;
+
+    fn main() {}
+
+    fn append(v: & Vec < u64 >, elem: u64) -> (c: Vec < u64 >)
+        requires
+            v.len() <= 100,
+        ensures
+            c @.len() == v @.len() + 1,
+            forall | i: int |(0 <= i && i < v.len()) ==> c[i] == v[i],
+            c @.last() == elem,
+    {
+        let mut c = Vec::with_capacity(v.len() + 1);
+        let mut n: usize = 0;
+        let len: usize = v.len();
+        while n != len
+            invariant
+                true,
+                v.len() <= 100,
+                len == v.len(),
+                n <= len,
+                c@.len() == n,
+                forall |i: int| 0 <= i < n ==> c[i] == v[i],
+                forall |i: int| 0 <= i < n ==> #[trigger] c@[i] == v@[i],
+            decreases len - n,
+        {
+            c.push(v[n]);
+            n = n + 1;
+        }
+        c.push(elem);
+        c
+    }
+}
+
+// Score: Compilation Error: False, Verified: 3, Errors: 0, Verus Errors: 0
+// Safe: True

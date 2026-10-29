@@ -1,0 +1,12 @@
+task,status,verified,requests,prompt_tokens,completion_tokens,error
+"all_digits_strong.rs","exhausted",false,96,768211,63444,""
+"array_append_strong.rs","verified",true,1,5109,256,""
+"array_concat_strong.rs","verified",true,1,5309,360,""
+"array_copy_strong.rs","verified",true,1,5067,225,""
+"array_product_strong.rs","verified",true,1,5428,356,""
+"array_sum_strong.rs","verified",true,1,5423,352,""
+"binary_search.rs","verified",true,2,10909,699,""
+"cal_div.rs","verified",true,1,3485,161,""
+"is_prime.rs","verified",true,1,4091,339,""
+"linear_search2.rs","verified",true,1,5190,242,""
+"two_sum.rs","verified",true,2,16652,1487,""

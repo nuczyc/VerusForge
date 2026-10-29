@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "stdout": "",
+  "stderr": "warning: function `slow_max` is never used\n --> /tmp/.tmpJfGKTg/implementation.rs:1:4\n  |\n1 | fn slow_max(a: u64, b: u64) -> u64 {\n  |    ^^^^^^^^\n  |\n  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default\n\nwarning: function `main` is never used\n  --> /tmp/.tmpJfGKTg/implementation.rs:25:4\n   |\n25 | fn main() {}\n   |    ^^^^\n\nwarning: 2 warnings emitted\n\n",
+  "elapsed_ms": 60
+}

@@ -1,0 +1,35 @@
+REQUIREMENTS:
+Given two non-negative 64-bit unsigned integers, implement a function that returns the larger of the two values. The function must be verified to satisfy the postcondition that its result equals the mathematical maximum of the two inputs. The solution should use a loop with the following invariants: (1) both working copies of the inputs remain non-negative, (2) an auxiliary counter equals the amount subtracted from each working copy, and (3) the amounts subtracted from the two working copies are equal throughout the loop. The loop must be proven to terminate by providing a measure that strictly decreases on every iteration. There are no preconditions beyond the standard bounds of 64-bit unsigned integers.
+spec fn max(x: u64, y: u64) -> u64
+fn slow_max(a: u64, b: u64) -> (z: u64)
+IMMUTABLE RUST IMPLEMENTATION:
+fn slow_max(a: u64, b: u64) -> u64 {
+    let mut x = a;
+    let mut y = b;
+    let mut counter: u64 = 0;
+    // Loop: subtract 1 from both x and y until one reaches 0.
+    // Invariants: x, y non-negative (trivially true for u64);
+    // counter equals amount subtracted from each; amounts subtracted equal.
+    while x > 0 && y > 0 {
+        x -= 1;
+        y -= 1;
+        counter = counter.wrapping_add(1);
+    }
+    // After loop, one of x or y is 0. The original values are recovered as:
+    // a = (a_original - counter) + counter, but we know:
+    // if x == 0 then a == counter, and b == y + counter.
+    // so max(a,b) = counter + max(0, y) = counter + y (since y could be 0 or positive)
+    // if y == 0 then b == counter, and a == x + counter, so max = counter + x.
+    // In both cases, result = counter + max(x, y)? Let's verify:
+    // a = x + counter, b = y + counter. max(a,b) = counter + max(x,y).
+    // Since one of x,y is 0, max(x,y) is the other.
+    let m = if x > y { x } else { y };
+    counter.wrapping_add(m)
+}
+
+fn main() {}
+PREVIOUS ANNOTATION:
+
+FEEDBACK:
+
+Add the specification adapter only; VerusSeek-RS will handle verification and proof repair.
