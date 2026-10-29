@@ -31,6 +31,8 @@ VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具
 
 ## 📦 Setup
 
+### 🛠️ 本机安装
+
 在仓库根目录执行，一键安装依赖、配置 Rust 和 Verus、构建并启动：
 
 ```bash
