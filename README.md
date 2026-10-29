@@ -11,7 +11,7 @@
 ![Verification](https://img.shields.io/badge/Verifier-Verus-45B8AC)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[功能亮点](#highlights) · [安装](#setup) · [使用](#usage) · [测试与评测](#evaluation) · [实现](#implementation) · [许可与来源](#license)
+[功能亮点](#highlights) · [安装](#setup) · [使用](#usage) · [测试与评测](#evaluation) · [实现](#implementation)
 
 </div>
 
@@ -225,24 +225,3 @@ scripts/           环境辅助与启动检查
 ```
 
 提交修改前运行 `cargo fmt --all --check` 和 `cargo test --locked -p verusseek-rs`，涉及证明判定、AST 边界或进程控制的修改应附故障回归用例。提交中说明变更、验证命令及结果，不提交 API 凭据和生成缓存。开发历史由 Git 保留，评审版本应使用完整 commit ID 或固定标签；可通过 `git rev-parse HEAD` 获取当前版本，未提交修改不属于该 commit。
-
-<a id="license"></a>
-
-## 📄 License & Acknowledgments
-
-本仓库保留 [MIT 许可证](LICENSE) 及原版权声明。第三方代码与数据遵循各自许可，项目许可证不构成对第三方数据的重新授权。
-
-| 来源 | 复用范围与版本 |
-| --- | --- |
-| [VerusSeek](https://github.com/nuczyc/VerusSeek) | 上游基线 `291bbe72982a0527c209013384b6095a15f0ce49`；证明策略、提示词、示例、lemma、benchmark 和部分回放候选 |
-| [Verus](https://github.com/verus-lang/verus) | `syn_verus` 源码基线 `142e202798538e782bc1ada3b300730a9d07fce9`；许可证见 `rust/vendor/syn_verus/LICENSE-MIT`、`LICENSE-APACHE`；本地补充显式生命周期标注 |
-| [NL2VBench](https://github.com/Xidian-ICTT-GZ/NL2VBench) | 原始需求 `_1`、`_2`、`_3`、`_9`；固定版本与文件 SHA 见 [来源清单](requirements/nl2vbench/sources.json)，未导入参考证明；导入版本根目录未列出 LICENSE |
-| Cargo 依赖 | 依赖及固定版本见 `rust/Cargo.toml` 和 `Cargo.lock`，遵循各包许可证 |
-
-本次新增内容包括 Rust 原生证明管线、模型 API 适配、AST 保留检查、预算与进程管理、兼容阶段结构的评测输出、交互式终端，以及自然语言生成 Rust 后交由同一证明管线验证的流程。上游策略和数据不作为本次原创成果；旧版 Python、Web、Docker 和检索增强功能不属于当前交付范围。早期受限 `prove` 接口仅保留用于回归，说明见 [PROOF_SLOT](docs/PROOF_SLOT.md)。
-
-### AI 使用与参赛材料
-
-开发过程中使用 OpenAI Codex 辅助代码、文档和测试编写及问题排查。仓库记录的构建、自动化测试和运行输出可用于复核，不能替代参赛成员的人工审查；本文不声称团队已完成审查。提交前，参赛成员应实际审阅源码、复核运行结果和来源许可，并按真实情况补充审查人员、范围及方式。工具运行时调用的模型用于生成候选，模型回答本身不作为证明成功依据。
-
-本 README 提供 [2026 年 Rust 软件原型开发竞赛](https://chinasoft.ccf.org.cn/2026/#competition/rust-prototype-competition) 所要求的仓库使用、设计、Rust 核心作用、最小运行用例、贡献方式与来源说明。报名表、中文参赛 PDF、固定评审版本及最终提交材料仍须按组委会要求另行准备；开发提交历史与实验结果须以真实记录为准。
