@@ -144,9 +144,21 @@ pub fn run(options: Options) -> Result<Value> {
             task["status"] = json!("blocked_api");
             task["error"] = json!(error);
         } else {
+            let replay_sources = manifest
+                .get(relative.to_string_lossy().as_ref())
+                .or_else(|| {
+                    // Selecting a suite changes the discovery root, while the shared
+                    // manifest retains paths relative to the complete benchmark set.
+                    let directory = file.parent()?;
+                    if directory.file_name()? != "unverified" {
+                        return None;
+                    }
+                    let suite = suite_directory(directory.parent()?.file_name()?.to_str()?)?;
+                    let filename = file.file_name()?.to_str()?;
+                    manifest.get(&format!("{suite}/unverified/{filename}"))
+                });
             let responses = if options.replay_manifest.is_some() {
-                manifest
-                    .get(&relative.to_string_lossy().to_string())
+                replay_sources
                     .map(|paths| {
                         paths
                             .iter()
@@ -158,7 +170,7 @@ pub fn run(options: Options) -> Result<Value> {
             } else {
                 options.replay.clone()
             };
-            task["replay_sources"] = json!(manifest.get(&relative.to_string_lossy().to_string()));
+            task["replay_sources"] = json!(replay_sources);
             let missing_replay = mode == "replay" && responses.is_empty();
             let engine = Engine::new(
                 options.config.clone(),

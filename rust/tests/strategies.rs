@@ -493,3 +493,57 @@ fn benchmark_preserves_phase_files_intermediate_candidates_and_logs() {
     assert_eq!(summary["tasks"][1]["requests"], 3);
     assert_eq!(summary["tasks"][1]["phases"].as_array().unwrap().len(), 3);
 }
+
+#[test]
+fn named_suite_replay_resolves_dataset_paths_and_records_sources() {
+    let Ok(verus) = std::env::var("VERUS_PATH") else {
+        return;
+    };
+    let dir = tempfile::tempdir().unwrap();
+    let inputs = dir
+        .path()
+        .join("benchmarks/Verus-Bench/CloverBench/unverified");
+    fs::create_dir_all(&inputs).unwrap();
+    fs::copy(
+        root().join("examples/count-input.rs"),
+        inputs.join("count.rs"),
+    )
+    .unwrap();
+    let proof = dir.path().join("good.rs");
+    fs::copy(root().join("examples/count-proof.rs"), &proof).unwrap();
+    let manifest = json!({"CloverBench/unverified/count.rs": [&proof]});
+    fs::write(dir.path().join("manifest.json"), manifest.to_string()).unwrap();
+    fs::write(dir.path().join("config.json"), config().to_string()).unwrap();
+    for (name, args) in [
+        ("named", vec!["--name", "clover"]),
+        ("all", vec![]),
+        (
+            "custom",
+            vec!["--root", "benchmarks/Verus-Bench/CloverBench/unverified"],
+        ),
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+            .current_dir(dir.path())
+            .arg("benchmark")
+            .args(args)
+            .args([
+                "--config",
+                "config.json",
+                "--replay-manifest",
+                "manifest.json",
+                "--verus",
+            ])
+            .arg(&verus)
+            .arg("--output-dir")
+            .arg(name)
+            .output()
+            .unwrap();
+        let report: Value =
+            serde_json::from_slice(&fs::read(dir.path().join(name).join("summary.json")).unwrap())
+                .unwrap();
+        assert_eq!(report["tasks"][0]["status"], "verified", "{name}: {report}");
+        assert!(output.status.success());
+        assert_eq!(report["tasks"][0]["replay_sources"], json!([&proof]));
+        assert_eq!(report["tasks"][0]["requests"], 1);
+    }
+}
