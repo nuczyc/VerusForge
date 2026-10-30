@@ -1,6 +1,6 @@
 <div align="center">
 
-# VerusSeek-RS
+# VerusForge
 
 **Verifier-Guided Proof Synthesis for Rust**
 
@@ -15,7 +15,7 @@
 
 </div>
 
-VerusSeek-RS 是使用 Rust 实现的 Verus 证明生成、修复与评测工具，面向 Rust 学习者、形式化验证研究者和开发者。输入自然语言需求或带规约的程序，工具生成候选、调用真实 Verus、根据错误反馈修复证明，并保存代码和运行记录。
+VerusForge 是使用 Rust 实现的 Verus 证明生成、修复与评测工具，面向 Rust 学习者、形式化验证研究者和开发者。输入自然语言需求或带规约的程序，工具生成候选、调用真实 Verus、根据错误反馈修复证明，并保存代码和运行记录。
 
 <a id="highlights"></a>
 
@@ -67,8 +67,8 @@ source scripts/env-rust-local.sh
 所有命令在仓库根目录执行。可先通过下列命令查看各入口参数：
 
 ```bash
-cargo run --locked -p verusseek-rs -- --help
-cargo run --locked -p verusseek-rs -- benchmark --help
+cargo run --locked -p verusforge -- --help
+cargo run --locked -p verusforge -- benchmark --help
 ```
 
 | 入口 | 输入 | 输出 |
@@ -88,7 +88,7 @@ cargo run --locked -p verusseek-rs -- benchmark --help
 
 ```bash
 # 输出目录必须尚不存在；重复运行时更换目录名
-cargo run --locked -p verusseek-rs -- synthesize rust/examples/count-input.rs \
+cargo run --locked -p verusforge -- synthesize rust/examples/count-input.rs \
   --local-only --config rust/config.benchmark.json \
   --output-dir results/minimal-count
 ```
@@ -98,7 +98,7 @@ cargo run --locked -p verusseek-rs -- synthesize rust/examples/count-input.rs \
 也可直接验证一个已有的正确程序：
 
 ```bash
-cargo run --locked -p verusseek-rs -- verify examples/quickstart/smoke.rs
+cargo run --locked -p verusforge -- verify examples/quickstart/smoke.rs
 ```
 
 输入函数返回参数自身，规约要求 `y == x`。预期输出 `"verified": true`，退出码为 `0`。该命令不调用模型。
@@ -106,7 +106,7 @@ cargo run --locked -p verusseek-rs -- verify examples/quickstart/smoke.rs
 ### 2. 打开交互式首页
 
 ```bash
-cargo run --locked -p verusseek-rs
+cargo run --locked -p verusforge
 ```
 
 交互终端中打开启动首页，提供上述三个入口。↑↓ 选择、Enter 确认，Esc 返回，首页 Q 退出；文件通过目录浏览器选择，无需手动输入路径。执行时显示真实进度日志，完成后按 Enter 返回首页。管道或重定向环境下显示 CLI 帮助。
@@ -115,26 +115,26 @@ Natural Language → Rust 提供 NL2VBench 的四份原始需求：最大值下�
 
 ### 3. 配置模型服务
 
-在仓库根目录创建本地 `apikey` 文件，依次填写三行：API 密钥、API base URL、模型名称。文件已加入 `.gitignore`，不要提交凭据。也可通过 `--api-config PATH` 指定文件，或设置 `VERUSSEEK_API_KEY`、`VERUSSEEK_API_BASE`、`VERUSSEEK_MODEL` 环境变量。
+在仓库根目录创建本地 `apikey` 文件，依次填写三行：API 密钥、API base URL、模型名称。文件已加入 `.gitignore`，不要提交凭据。也可通过 `--api-config PATH` 指定文件，或设置 `VERUSFORGE_API_KEY`、`VERUSFORGE_API_BASE`、`VERUSFORGE_MODEL` 环境变量。
 
 ### 4. 生成 Rust 与 Verus 证明
 
 ```bash
 # 自然语言 → Rust → Verus 证明
-cargo run --locked -p verusseek-rs -- develop \
+cargo run --locked -p verusforge -- develop \
   --request-file requirements/nl2vbench/DAFNY2VERUS-COLLECTION_1/description.txt \
   --attempts 3 --config rust/config.benchmark.json
 
 # 仅预览需求，不读取凭据、不调用模型或验证器
-cargo run --locked -p verusseek-rs -- develop \
+cargo run --locked -p verusforge -- develop \
   --request-file requirements/nl2vbench/DAFNY2VERUS-COLLECTION_1/description.txt --preview
 
 # 为已有规约的程序生成证明；generate 是 synthesize 的别名
-cargo run --locked -p verusseek-rs -- synthesize rust/examples/count-input.rs \
+cargo run --locked -p verusforge -- synthesize rust/examples/count-input.rs \
   --config rust/config.benchmark.json
 
 # 小规模实时 benchmark
-cargo run --locked -p verusseek-rs -- benchmark --name clover --limit 3
+cargo run --locked -p verusforge -- benchmark --name clover --limit 3
 ```
 
 标准配置为 [rust/config.benchmark.json](rust/config.benchmark.json)：最多 3 个阶段，每阶段 3 轮生成、每轮请求最多 5 个候选；DeepSeek 接口适配为每轮 1 个候选。每题最多 96 次模型请求、512 次验证，输出额度固定为 8192 token；通过后提前结束。截断候选被丢弃，连续 3 次空截断停止该题，不自动提高 token 额度。自然语言入口的 `--attempts` 控制 Rust 生成和规约适配尝试，证明阶段仍受总体请求预算约束。
@@ -163,7 +163,7 @@ results/YYYYMMDD-HHMMSS-clover/
 
 中间文件仅在对应步骤执行时创建。`summary.json` 保存逐题状态并指向最后阶段结果，失败任务也保留真实诊断和评分。
 
-自然语言输出包含 `requirements.md`、`implementation.rs`、`contracts.json`、`rust/` 编译候选、`proof/verusseek/` 证明过程和 `report.json`。`verified.rs` 仅在最终验证与独立复验成功后生成。
+自然语言输出包含 `requirements.md`、`implementation.rs`、`contracts.json`、`rust/` 编译候选、`proof/verusforge/` 证明过程和 `report.json`。`verified.rs` 仅在最终验证与独立复验成功后生成。
 
 <a id="evaluation"></a>
 
@@ -171,19 +171,19 @@ results/YYYYMMDD-HHMMSS-clover/
 
 ```bash
 export VERUS_PATH=/absolute/path/to/verus
-cargo test --locked -p verusseek-rs
+cargo test --locked -p verusforge
 
 # 原始输入的验证基线，不调用模型
-cargo run --locked -p verusseek-rs -- benchmark --verify-only \
+cargo run --locked -p verusforge -- benchmark --verify-only \
   --output-dir results/baseline
 
 # 固定响应回放，不调用模型；用于检查调度和修复流程
-cargo run --locked -p verusseek-rs -- benchmark \
+cargo run --locked -p verusforge -- benchmark \
   --replay-manifest rust/benchmark-replay.json \
   --config rust/config.benchmark.json --output-dir results/replay
 
 # 完整在线评测；可用 --name diffy / mbpp / misc 选择数据集
-cargo run --locked -p verusseek-rs -- benchmark
+cargo run --locked -p verusforge -- benchmark
 ```
 
 默认评测集合为 CloverBench 11 题、Diffy 38 题、MBPP 78 题、Misc 23 题，共 150 题；`--root PATH` 支持自定义 `.rs` 目录。

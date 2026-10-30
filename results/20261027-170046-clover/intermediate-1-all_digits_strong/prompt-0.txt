@@ -499,14 +499,14 @@ VERIFIER FEEDBACK:
 Score: Score { verified: 0, errors: 999, compilation_error: true, diagnostics: 1 }
 Diagnostics:
 error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec
-  --> /tmp/verusseek_qN8v5l.rs:33:22
+  --> /tmp/verusforge_qN8v5l.rs:33:22
    |
 33 |                 i <= s.as_str().unicode_len()
    |                      ^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 Raw verifier output:
-{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_qN8v5l.rs","byte_start":966,"byte_end":990,"line_start":33,"line_end":33,"column_start":22,"column_end":46,"is_primary":true,"text":[{"text":"                i <= s.as_str().unicode_len()","highlight_start":22,"highlight_end":46}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusseek_qN8v5l.rs:33:22\n   |\n33 |                 i <= s.as_str().unicode_len()\n   |                      ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusforge_qN8v5l.rs","byte_start":966,"byte_end":990,"line_start":33,"line_end":33,"column_start":22,"column_end":46,"is_primary":true,"text":[{"text":"                i <= s.as_str().unicode_len()","highlight_start":22,"highlight_end":46}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusforge_qN8v5l.rs:33:22\n   |\n33 |                 i <= s.as_str().unicode_len()\n   |                      ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
 {"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 1 previous error\n\n"}
 
 

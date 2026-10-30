@@ -12,7 +12,7 @@ fn replay_with_real_verus() {
     };
     let tmp = tempfile::tempdir().unwrap();
     let run = tmp.path().join("replay");
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("prove")
         .arg(root().join("examples/input.rs"))
         .arg("--output-dir")
@@ -42,7 +42,7 @@ fn replay_with_real_verus() {
     assert_eq!(
         verified,
         input.replace(
-            "/* VERUSSEEK_PROOF */",
+            "/* VERUSFORGE_PROOF */",
             &fs::read_to_string(root().join("examples/good-proof.txt")).unwrap()
         )
     );
@@ -64,7 +64,7 @@ fn whole_program_synthesis_and_contract_rejection() {
             .replace("ensures r == n", "ensures true"),
     )
     .unwrap();
-    let baseline = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let baseline = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("verify")
         .arg(&input)
         .arg("--verus")
@@ -76,7 +76,7 @@ fn whole_program_synthesis_and_contract_rejection() {
         "fixture must require an invariant"
     );
     let run = tmp.path().join("synthesis");
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("synthesize")
         .arg(input)
         .arg("--output-dir")
@@ -135,7 +135,7 @@ fn houdini_removes_failed_invariant_with_real_verus() {
             ),
     )
     .unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("synthesize")
         .arg(root().join("examples/count-input.rs"))
         .arg("--config")
@@ -172,7 +172,7 @@ fn deterministic_loop_strategy_with_real_verus() {
         return;
     };
     let tmp = tempfile::tempdir().unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("synthesize")
         .arg(root().join("examples/count-input.rs"))
         .arg("--config")
@@ -259,8 +259,8 @@ fn live_http_contract_with_real_verus() {
     });
     let tmp = tempfile::tempdir().unwrap();
     let run = tmp.path().join("live");
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
-        .env("VERUSSEEK_API_KEY", "test-only")
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
+        .env("VERUSFORGE_API_KEY", "test-only")
         .env("NO_PROXY", "127.0.0.1")
         .arg("prove")
         .arg(root().join("examples/input.rs"))

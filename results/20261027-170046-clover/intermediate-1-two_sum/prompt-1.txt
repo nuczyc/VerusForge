@@ -400,7 +400,7 @@ VERIFIER FEEDBACK:
 Score: Score { verified: 3, errors: 1, compilation_error: false, diagnostics: 1 }
 Diagnostics:
 error: postcondition not satisfied
-  --> /tmp/verusseek_CW8dZ1.rs:14:13
+  --> /tmp/verusforge_CW8dZ1.rs:14:13
    |
 14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,
    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
@@ -410,7 +410,7 @@ error: postcondition not satisfied
 
 
 Raw verifier output:
-{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_CW8dZ1.rs","byte_start":2352,"byte_end":2364,"line_start":55,"line_end":55,"column_start":21,"column_end":33,"is_primary":false,"text":[{"text":"                    return(i, j);","highlight_start":21,"highlight_end":33}],"label":"at this exit","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusseek_CW8dZ1.rs","byte_start":474,"byte_end":566,"line_start":14,"line_end":14,"column_start":13,"column_end":105,"is_primary":true,"text":[{"text":"            (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,","highlight_start":13,"highlight_end":105}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusseek_CW8dZ1.rs:14:13\n   |\n14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n55 |                     return(i, j);\n   |                     ------------ at this exit\n\n"}
+{"$message_type":"diagnostic","message":"postcondition not satisfied","code":null,"level":"error","spans":[{"file_name":"/tmp/verusforge_CW8dZ1.rs","byte_start":2352,"byte_end":2364,"line_start":55,"line_end":55,"column_start":21,"column_end":33,"is_primary":false,"text":[{"text":"                    return(i, j);","highlight_start":21,"highlight_end":33}],"label":"at this exit","suggested_replacement":null,"suggestion_applicability":null,"expansion":null},{"file_name":"/tmp/verusforge_CW8dZ1.rs","byte_start":474,"byte_end":566,"line_start":14,"line_end":14,"column_start":13,"column_end":105,"is_primary":true,"text":[{"text":"            (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,","highlight_start":13,"highlight_end":105}],"label":"failed this postcondition","suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: postcondition not satisfied\n  --> /tmp/verusforge_CW8dZ1.rs:14:13\n   |\n14 |             (0 <= r.0 && r.0 < r.1 && r.1 < nums.len()) && nums[r.0 as int] + nums[r.1 as int] == target,\n   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\n...\n55 |                     return(i, j);\n   |                     ------------ at this exit\n\n"}
 {"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 1 previous error\n\n"}
 
 

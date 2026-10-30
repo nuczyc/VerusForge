@@ -669,14 +669,14 @@ VERIFIER FEEDBACK:
 Score: Score { verified: 0, errors: 999, compilation_error: true, diagnostics: 1 }
 Diagnostics:
 error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec
-  --> /tmp/verusseek_vj6lkc.rs:44:36
+  --> /tmp/verusforge_vj6lkc.rs:44:36
    |
 44 |                 assert(s@.len() == s.as_str().unicode_len());
    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 Raw verifier output:
-{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_vj6lkc.rs","byte_start":1458,"byte_end":1482,"line_start":44,"line_end":44,"column_start":36,"column_end":60,"is_primary":true,"text":[{"text":"                assert(s@.len() == s.as_str().unicode_len());","highlight_start":36,"highlight_end":60}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusseek_vj6lkc.rs:44:36\n   |\n44 |                 assert(s@.len() == s.as_str().unicode_len());\n   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusforge_vj6lkc.rs","byte_start":1458,"byte_end":1482,"line_start":44,"line_end":44,"column_start":36,"column_end":60,"is_primary":true,"text":[{"text":"                assert(s@.len() == s.as_str().unicode_len());","highlight_start":36,"highlight_end":60}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusforge_vj6lkc.rs:44:36\n   |\n44 |                 assert(s@.len() == s.as_str().unicode_len());\n   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
 {"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 1 previous error\n\n"}
 
 

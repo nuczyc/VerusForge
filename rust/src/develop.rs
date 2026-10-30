@@ -125,7 +125,7 @@ impl Session {
                     "--edition=2021",
                     "--crate-type=lib",
                     "--emit=metadata",
-                    "--crate-name=verusseek_generated",
+                    "--crate-name=verusforge_generated",
                 ])
                 .arg(path)
                 .arg("-o")
@@ -199,7 +199,7 @@ impl Session {
         let mut previous = String::new();
         let mut feedback = String::new();
         for index in 0..self.options.attempts {
-            let prompt = format!("REQUIREMENTS:\n{}\nIMMUTABLE RUST IMPLEMENTATION:\n{rust}\nPREVIOUS ANNOTATION:\n{previous}\nFEEDBACK:\n{feedback}\nAdd the specification adapter only; VerusSeek-RS will handle verification and proof repair.", self.options.requirement);
+            let prompt = format!("REQUIREMENTS:\n{}\nIMMUTABLE RUST IMPLEMENTATION:\n{rust}\nPREVIOUS ANNOTATION:\n{previous}\nFEEDBACK:\n{feedback}\nAdd the specification adapter only; VerusForge will handle verification and proof repair.", self.options.requirement);
             let Some(code) = self.request("proof", index, PROOF_SYSTEM, &prompt)? else {
                 break;
             };
@@ -235,7 +235,7 @@ impl Session {
                 self.options.output.join("contracts.json"),
                 serde_json::to_vec_pretty(&contracts)?,
             )?;
-            self.event(json!({"stage":"proof","index":index,"status":"handed_to_verusseek"}))?;
+            self.event(json!({"stage":"proof","index":index,"status":"handed_to_verusforge"}))?;
             let mut config = self.options.proof_config.clone();
             let remaining = self.options.max_requests.saturating_sub(self.requests);
             // Engine still checks the initial program when no further model requests remain.
@@ -250,8 +250,8 @@ impl Session {
                 .get(self.requests..)
                 .unwrap_or(&[])
                 .to_vec();
-            eprintln!("  Rust compiled. Handing specification adapter to VerusSeek-RS...");
-            let proof_dir = self.options.output.join("proof").join("verusseek");
+            eprintln!("  Rust compiled. Handing specification adapter to VerusForge...");
+            let proof_dir = self.options.output.join("proof").join("verusforge");
             let seed = syntax::specification_seed(&code)?;
             fs::write(self.options.output.join("proof").join("input.rs"), &seed)?;
             let report = pipeline::Engine::new(
@@ -310,7 +310,7 @@ pub fn run(options: Options) -> Result<Value> {
     fs::create_dir(options.output.join("rust"))?;
     fs::create_dir(options.output.join("proof"))?;
     fs::write(options.output.join("requirements.md"), &options.requirement)?;
-    let report = json!({"mode":if options.replay.is_empty() {"live"} else {"replay"},"status":"running","verified":false,"rust_compiled":false,"executable_preserved":false,"model":options.client.as_ref().map(|client| &client.model),"attempts":[],"pipeline":"natural_language_to_rust_to_verusseek","verification_scope":"specified_functions; ordinary demonstration main is retained outside verus!","specification_source":"generated_from_requirements","requirement_alignment":"requires_human_review"});
+    let report = json!({"mode":if options.replay.is_empty() {"live"} else {"replay"},"status":"running","verified":false,"rust_compiled":false,"executable_preserved":false,"model":options.client.as_ref().map(|client| &client.model),"attempts":[],"pipeline":"natural_language_to_rust_to_verusforge","verification_scope":"specified_functions; ordinary demonstration main is retained outside verus!","specification_source":"generated_from_requirements","requirement_alignment":"requires_human_review"});
     let mut session = Session {
         options,
         report,

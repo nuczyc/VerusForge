@@ -23,7 +23,7 @@ use std::{
 
 #[derive(Parser)]
 #[command(
-    name = "verusseek",
+    name = "verusforge",
     version,
     about = "Verifier-guided proof synthesis for Rust and Verus"
 )]
@@ -116,9 +116,9 @@ enum Action {
         /// Explicitly replay saved proof snippets; no live generation is claimed.
         #[arg(long, conflicts_with = "model")]
         replay: Vec<PathBuf>,
-        #[arg(long, env = "VERUSSEEK_MODEL")]
+        #[arg(long, env = "VERUSFORGE_MODEL")]
         model: Option<String>,
-        #[arg(long, env = "VERUSSEEK_API_BASE")]
+        #[arg(long, env = "VERUSFORGE_API_BASE")]
         api_base: Option<String>,
     },
 }
@@ -234,8 +234,8 @@ fn generate(base: &str, model: &str, prompt: &str, timeout: u64) -> Result<Strin
         "use HTTPS or a local HTTP endpoint"
     );
     ensure!(!base.contains(['\r', '\n', '"', '\\']), "invalid API base");
-    let key =
-        std::env::var("VERUSSEEK_API_KEY").context("set VERUSSEEK_API_KEY for live generation")?;
+    let key = std::env::var("VERUSFORGE_API_KEY")
+        .context("set VERUSFORGE_API_KEY for live generation")?;
     ensure!(
         !key.contains(['\r', '\n', '"', '\\']),
         "invalid API key characters"
@@ -302,7 +302,7 @@ fn execute() -> Result<bool> {
     }
     let mut welcome = tui::welcome::Welcome::default();
     while let Some(arguments) = welcome.show()? {
-        let parsed = Cli::try_parse_from(std::iter::once("verusseek".to_owned()).chain(arguments));
+        let parsed = Cli::try_parse_from(std::iter::once("verusforge".to_owned()).chain(arguments));
         match parsed
             .map_err(anyhow::Error::from)
             .and_then(|cli| execute_action(cli.command.context("missing launcher command")?))
@@ -311,7 +311,7 @@ fn execute() -> Result<bool> {
             Ok(false) => eprintln!("Task finished without a verified result."),
             Err(error) => eprintln!("error: {error:#}"),
         }
-        print!("\nPress Enter to return to VerusSeek (Ctrl-D to exit)... ");
+        print!("\nPress Enter to return to VerusForge (Ctrl-D to exit)... ");
         io::stdout().flush()?;
         if io::stdin().read_line(&mut String::new())? == 0 {
             break;

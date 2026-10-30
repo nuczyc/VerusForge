@@ -2,7 +2,7 @@ use std::process::{Command, Stdio};
 
 #[test]
 fn no_arguments_with_piped_input_prints_help_without_terminal_controls() {
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .stdin(Stdio::null())
         .output()
         .unwrap();
@@ -23,7 +23,7 @@ fn direct_commands_bypass_the_welcome_screen() {
         "search",
         "config",
     ] {
-        let mut process = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"));
+        let mut process = Command::new(env!("CARGO_BIN_EXE_verusforge"));
         process.arg(command);
         if command != "--help" {
             process.arg("--help");
@@ -36,7 +36,7 @@ fn direct_commands_bypass_the_welcome_screen() {
 
 #[test]
 fn lexical_search_is_available_without_loading_api_credentials() {
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .args(["search", "assert", "--kb"])
         .arg(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("examples/kb.json"))
         .stdin(Stdio::null())

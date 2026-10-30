@@ -9,7 +9,7 @@ fn run(input: &str, responses: &[String], config: Value) -> Option<(tempfile::Te
     let dir = tempfile::tempdir().unwrap();
     fs::write(dir.path().join("input.rs"), input).unwrap();
     fs::write(dir.path().join("config.json"), config.to_string()).unwrap();
-    let mut command = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"));
+    let mut command = Command::new(env!("CARGO_BIN_EXE_verusforge"));
     command
         .arg("synthesize")
         .arg(dir.path().join("input.rs"))
@@ -190,7 +190,7 @@ fn request_budget_stops_before_consuming_a_second_candidate() {
     fs::write(dir.path().join("config.json"), cfg.to_string()).unwrap();
     fs::write(dir.path().join("first.rs"), &input).unwrap();
     fs::write(dir.path().join("second.rs"), good).unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("synthesize")
         .arg(root().join("examples/count-input.rs"))
         .arg("--config")
@@ -316,7 +316,7 @@ fi
     }
     cfg["max_requests"] = json!(budget);
     fs::write(dir.path().join("config.json"), cfg.to_string()).unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .env(
             "PATH",
             format!("{}:{}", bin.display(), std::env::var("PATH").unwrap()),
@@ -446,7 +446,7 @@ fn benchmark_preserves_phase_files_intermediate_candidates_and_logs() {
     cfg["houdini_steps"] = json!(0);
     fs::write(dir.path().join("config.json"), cfg.to_string()).unwrap();
     let result = dir.path().join("20261027-130000-clover");
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .args(["benchmark", "--name", "clover", "--root"])
         .arg(&inputs)
         .arg("--config")
@@ -522,7 +522,7 @@ fn named_suite_replay_resolves_dataset_paths_and_records_sources() {
             vec!["--root", "benchmarks/Verus-Bench/CloverBench/unverified"],
         ),
     ] {
-        let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+        let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
             .current_dir(dir.path())
             .arg("benchmark")
             .args(args)

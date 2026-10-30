@@ -296,7 +296,7 @@ impl Verifier {
     }
     pub fn code(&self, code: &str) -> Result<Evaluation> {
         let file = tempfile::Builder::new()
-            .prefix("verusseek_")
+            .prefix("verusforge_")
             .suffix(".rs")
             .tempfile()?;
         fs::write(file.path(), code)?;

@@ -43,9 +43,13 @@ impl Client {
         // Resolve credentials in the application, without a shell/Python loader.
         let default_file = Path::new(env!("CARGO_MANIFEST_DIR")).join("../apikey");
         let local_file = Path::new("apikey");
-        let use_env = ["VERUSSEEK_API_KEY", "VERUSSEEK_API_BASE", "VERUSSEEK_MODEL"]
-            .iter()
-            .all(|name| std::env::var(name).is_ok_and(|v| !v.trim().is_empty()));
+        let use_env = [
+            "VERUSFORGE_API_KEY",
+            "VERUSFORGE_API_BASE",
+            "VERUSFORGE_MODEL",
+        ]
+        .iter()
+        .all(|name| std::env::var(name).is_ok_and(|v| !v.trim().is_empty()));
         let path = path.or_else(|| {
             if use_env {
                 None
@@ -74,9 +78,9 @@ impl Client {
                 fields
             }
             None => vec![
-                std::env::var("VERUSSEEK_API_KEY").context("missing VERUSSEEK_API_KEY")?,
-                std::env::var("VERUSSEEK_API_BASE").context("missing VERUSSEEK_API_BASE")?,
-                std::env::var("VERUSSEEK_MODEL").context("missing VERUSSEEK_MODEL")?,
+                std::env::var("VERUSFORGE_API_KEY").context("missing VERUSFORGE_API_KEY")?,
+                std::env::var("VERUSFORGE_API_BASE").context("missing VERUSFORGE_API_BASE")?,
+                std::env::var("VERUSFORGE_MODEL").context("missing VERUSFORGE_MODEL")?,
             ],
         };
         ensure!(

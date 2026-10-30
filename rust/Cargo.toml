@@ -1,20 +1,15 @@
 [package]
-name = "verusseek-rs"
+name = "verusforge"
 version = "0.1.0"
 edition = "2021"
 autoexamples = false
-default-run = "verusseek-rs"
+default-run = "verusforge"
 description = "Rust-native verifier-guided proof synthesis and benchmarking"
 license = "MIT"
 
 [[bin]]
-name = "verusseek-rs"
+name = "verusforge"
 path = "src/main.rs"
-
-[[bin]]
-name = "verusseek"
-path = "src/verusseek.rs"
-test = false
 
 [dependencies]
 ratatui = { version = "=0.30.2", default-features = false, features = ["crossterm"] }

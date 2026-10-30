@@ -62,7 +62,7 @@ tar -czf "$fixture/source.tar.gz" -C "$fixture/source" top
   bash scripts/setup.sh > "$fixture/output"
   [[ "$(grep -c '^download$' "$fixture/calls")" == 1 ]]
   [[ "$(grep -c '^build-verus$' "$fixture/calls")" == 1 ]]
-  grep -q '^cargo run --locked -p verusseek-rs -- benchmark --name clover --limit 3$' "$fixture/calls"
+  grep -q '^cargo run --locked -p verusforge -- benchmark --name clover --limit 3$' "$fixture/calls"
   # Failed verification cannot publish a successful installation environment.
   cp .local/env.sh "$fixture/previous-env"
   touch "$fixture/fail"

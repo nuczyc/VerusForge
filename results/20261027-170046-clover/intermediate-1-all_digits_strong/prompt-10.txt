@@ -375,14 +375,14 @@ VERIFIER FEEDBACK:
 Score: Score { verified: 0, errors: 999, compilation_error: true, diagnostics: 1 }
 Diagnostics:
 error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec
-  --> /tmp/verusseek_rWGpmu.rs:37:29
+  --> /tmp/verusforge_rWGpmu.rs:37:29
    |
 37 |                 s@.len() == s.as_str().unicode_len(),
    |                             ^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 Raw verifier output:
-{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusseek_rWGpmu.rs","byte_start":1253,"byte_end":1277,"line_start":37,"line_end":37,"column_start":29,"column_end":53,"is_primary":true,"text":[{"text":"                s@.len() == s.as_str().unicode_len(),","highlight_start":29,"highlight_end":53}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusseek_rWGpmu.rs:37:29\n   |\n37 |                 s@.len() == s.as_str().unicode_len(),\n   |                             ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
+{"$message_type":"diagnostic","message":"cannot call function `vstd::string::impl&%2::unicode_len` with mode exec","code":null,"level":"error","spans":[{"file_name":"/tmp/verusforge_rWGpmu.rs","byte_start":1253,"byte_end":1277,"line_start":37,"line_end":37,"column_start":29,"column_end":53,"is_primary":true,"text":[{"text":"                s@.len() == s.as_str().unicode_len(),","highlight_start":29,"highlight_end":53}],"label":null,"suggested_replacement":null,"suggestion_applicability":null,"expansion":null}],"children":[],"rendered":"error: cannot call function `vstd::string::impl&%2::unicode_len` with mode exec\n  --> /tmp/verusforge_rWGpmu.rs:37:29\n   |\n37 |                 s@.len() == s.as_str().unicode_len(),\n   |                             ^^^^^^^^^^^^^^^^^^^^^^^^\n\n"}
 {"$message_type":"diagnostic","message":"aborting due to 1 previous error","code":null,"level":"error","spans":[],"children":[],"rendered":"error: aborting due to 1 previous error\n\n"}
 
 

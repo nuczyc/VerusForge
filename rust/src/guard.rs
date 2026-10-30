@@ -1,6 +1,6 @@
 use anyhow::{bail, ensure, Result};
 
-pub const SLOT: &str = "/* VERUSSEEK_PROOF */";
+pub const SLOT: &str = "/* VERUSFORGE_PROOF */";
 
 /// Restricted assertion expressions only. This is deliberately not a Verus parser.
 /// Calls, paths, macros, assignments, strings, attributes and new declarations
@@ -106,7 +106,7 @@ mod tests {
     fn accepts_pure_assertions() {
         assert_eq!(
             fill(
-                "before /* VERUSSEEK_PROOF */ after",
+                "before /* VERUSFORGE_PROOF */ after",
                 "assert(x + 1 > x);\nassert(a[i] == 2);"
             )
             .unwrap(),

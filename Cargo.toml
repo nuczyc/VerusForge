@@ -1,4 +1,4 @@
 [workspace]
 resolver = "2"
 members = ["rust"]
-exclude = ["rust/vendor/syn_verus"]
+exclude = ["rust/vendor/syn_verus", ".local/verus-source/tools/vargo"]

@@ -15,7 +15,7 @@ usage() {
 Usage: bash scripts/setup.sh [--run] [--verus PATH]
 
 Install dependencies, configure Rust 1.91.0 and Verus, build and verify a sample.
-  --run         Open VerusSeek-RS after setup.
+  --run         Open VerusForge after setup.
   --verus PATH  Use an existing Verus installation instead of building one.
   -h, --help    Show this help.
 HELP
@@ -95,7 +95,7 @@ elif command -v verus >/dev/null 2>&1; then
   verus_bin="$(command -v verus)"
 else
   verus_bin="$verus_source/source/target-verus/release/verus"
-  if [[ ! -x "$verus_bin" || ! -f "$verus_source/.verusseek-build-complete" ]]; then
+  if [[ ! -x "$verus_bin" || ! -f "$verus_source/.verusforge-build-complete" ]]; then
     echo '[3/5] Building Verus for this architecture (first installation can take a while)...'
     if [[ ! -d "$verus_source" ]]; then
       curl --proto '=https' --tlsv1.2 -fSL --retry 3 \
@@ -107,6 +107,8 @@ else
     (
       cd "$verus_source"
       rustup toolchain install
+      # RUSTUP_TOOLCHAIN overrides the Verus toolchain file, so install its build components explicitly.
+      rustup component add --toolchain "$rust_version" rustc-dev llvm-tools
       cd source
       if [[ ! -x z3 ]]; then
         bash tools/get-z3.sh
@@ -117,7 +119,7 @@ else
       set -u
       vargo build --release
     )
-    touch "$verus_source/.verusseek-build-complete"
+    touch "$verus_source/.verusforge-build-complete"
   fi
 fi
 export VERUS_PATH="$verus_bin"
@@ -127,12 +129,12 @@ fi
 echo "[3/5] Verus: $VERUS_PATH"
 "$VERUS_PATH" --version
 
-echo '[4/5] Building VerusSeek-RS...'
+echo '[4/5] Building VerusForge...'
 cd "$project_root"
-cargo build --locked -p verusseek-rs
+cargo build --locked -p verusforge
 
 echo '[5/5] Verifying sample...'
-cargo run --locked -p verusseek-rs -- verify examples/quickstart/smoke.rs
+cargo run --locked -p verusforge -- verify examples/quickstart/smoke.rs
 
 # Publish environment only after the complete installation has passed verification.
 {

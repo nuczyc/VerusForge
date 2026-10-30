@@ -9,5 +9,5 @@ if [[ ! -r "$credential_file" ]]; then
 fi
 credential_file="$(cd "$(dirname "$credential_file")" && pwd)/$(basename "$credential_file")"
 cd "$project_root"
-exec cargo run --locked -p verusseek-rs -- benchmark --api-config "$credential_file" \
+exec cargo run --locked -p verusforge -- benchmark --api-config "$credential_file" \
   --config rust/config.benchmark.json

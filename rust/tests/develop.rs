@@ -14,7 +14,7 @@ fn run(responses: &[String], max_requests: usize) -> Option<(tempfile::TempDir, 
             .to_string(),
     )
     .unwrap();
-    let mut command = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"));
+    let mut command = Command::new(env!("CARGO_BIN_EXE_verusforge"));
     command.args(["develop", "--prompt", "Implement max_of_two for all u64 inputs; result is either argument and is at least both arguments."])
         .arg("--config").arg(dir.path().join("config.json"))
         .arg("--verus").arg(verus)
@@ -59,7 +59,7 @@ fn natural_language_generates_rust_before_verus_proves_the_same_implementation()
     );
     let proof = fs::read_to_string(dir.path().join("run/verified.rs")).unwrap();
     assert!(proof.contains("// Score:"));
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("verify")
         .arg(dir.path().join("run/verified.rs"))
         .arg("--verus")
@@ -129,14 +129,14 @@ fn trust_bypass_is_rejected_and_compile_only_is_not_verified() {
 
 #[test]
 fn natural_language_cli_accepts_a_text_file_but_rejects_conflicting_inputs() {
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .args(["develop", "--help"])
         .output()
         .unwrap();
     assert!(output.status.success());
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("../requirements/nl2vbench/DAFNY2VERUS-COLLECTION_1/description.txt");
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .args(["develop", "--prompt", "task", "--request-file"])
         .arg(path)
         .output()
@@ -149,7 +149,7 @@ fn preview_prints_requirements_without_loading_credentials_or_creating_outputs()
     let dir = tempfile::tempdir().unwrap();
     let request = dir.path().join("description.txt");
     fs::write(&request, "预览任务：计算两个整数的最大值。\n").unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_verusseek-rs"))
+    let output = Command::new(env!("CARGO_BIN_EXE_verusforge"))
         .arg("develop")
         .arg("--request-file")
         .arg(&request)
@@ -175,7 +175,7 @@ fn preview_prints_requirements_without_loading_credentials_or_creating_outputs()
 }
 
 #[test]
-fn generated_rust_with_demo_printing_is_compiled_and_handed_to_verusseek() {
+fn generated_rust_with_demo_printing_is_compiled_and_handed_to_verusforge() {
     let rust = include_str!("../examples/min-max-demo.rs");
     let (function, main_body) = rust.split_once("fn main()").unwrap();
     let function = function.replace(

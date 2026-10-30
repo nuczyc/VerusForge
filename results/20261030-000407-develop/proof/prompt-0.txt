@@ -32,4 +32,4 @@ PREVIOUS ANNOTATION:
 
 FEEDBACK:
 
-Add the specification adapter only; VerusSeek-RS will handle verification and proof repair.
+Add the specification adapter only; VerusForge will handle verification and proof repair.

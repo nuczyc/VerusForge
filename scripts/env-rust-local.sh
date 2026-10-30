@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Load saved defaults while retaining caller-supplied toolchain settings.
-_verusseek_load_environment() {
+_verusforge_load_environment() {
     local project_root name assignment
     local -a overrides=()
     project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -30,9 +30,9 @@ _verusseek_load_environment() {
         return 1
     fi
 }
-if _verusseek_load_environment; then
-    unset -f _verusseek_load_environment
+if _verusforge_load_environment; then
+    unset -f _verusforge_load_environment
 else
-    unset -f _verusseek_load_environment
+    unset -f _verusforge_load_environment
     return 1
 fi

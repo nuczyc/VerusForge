@@ -6,7 +6,7 @@ fn increment(x: u64) -> (result: u64)
     ensures result == x + 1,
 {
     proof {
-        /* VERUSSEEK_PROOF */
+        /* VERUSFORGE_PROOF */
     }
     x + 1
 }

@@ -40,7 +40,8 @@ const DEMO_TASKS: [(&str, &str); 4] = [
 ];
 const CUSTOM_TASK: &str = "选择自己的需求文件…";
 
-const LOGO_GLYPHS: [[&str; 7]; 9] = [
+const LOGO_GLYPHS: [[&str; 7]; 10] = [
+    // V
     [
         "█   █",
         "█   █",
@@ -50,6 +51,7 @@ const LOGO_GLYPHS: [[&str; 7]; 9] = [
         " █ █ ",
         "  █  ",
     ],
+    // E
     [
         "█████",
         "█    ",
@@ -59,6 +61,7 @@ const LOGO_GLYPHS: [[&str; 7]; 9] = [
         "█    ",
         "█████",
     ],
+    // R
     [
         "████ ",
         "█   █",
@@ -68,6 +71,7 @@ const LOGO_GLYPHS: [[&str; 7]; 9] = [
         "█  █ ",
         "█   █",
     ],
+    // U
     [
         "█   █",
         "█   █",
@@ -77,6 +81,7 @@ const LOGO_GLYPHS: [[&str; 7]; 9] = [
         "█   █",
         " ███ ",
     ],
+    // S
     [
         " ████",
         "█    ",
@@ -86,41 +91,55 @@ const LOGO_GLYPHS: [[&str; 7]; 9] = [
         "    █",
         "████ ",
     ],
+    // F
+    [
+        "█████",
+        "█    ",
+        "█    ",
+        "████ ",
+        "█    ",
+        "█    ",
+        "█    ",
+    ],
+    // O
+    [
+        " ███ ",
+        "█   █",
+        "█   █",
+        "█   █",
+        "█   █",
+        "█   █",
+        " ███ ",
+    ],
+    // R
+    [
+        "████ ",
+        "█   █",
+        "█   █",
+        "████ ",
+        "█ █  ",
+        "█  █ ",
+        "█   █",
+    ],
+    // G
     [
         " ████",
         "█    ",
         "█    ",
-        " ███ ",
-        "    █",
-        "    █",
-        "████ ",
-    ],
-    [
-        "█████",
-        "█    ",
-        "█    ",
-        "████ ",
-        "█    ",
-        "█    ",
-        "█████",
-    ],
-    [
-        "█████",
-        "█    ",
-        "█    ",
-        "████ ",
-        "█    ",
-        "█    ",
-        "█████",
-    ],
-    [
+        "█ ███",
         "█   █",
-        "█  █ ",
-        "█ █  ",
-        "██   ",
-        "█ █  ",
-        "█  █ ",
         "█   █",
+        " ████",
+    ],
+    // E
+    [
+        "█████",
+        "█    ",
+        "█    ",
+        "████ ",
+        "█    ",
+        "█    ",
+        "█████",
     ],
 ];
 
@@ -438,7 +457,7 @@ impl Viewer {
         ])
         .split(area);
         frame.render_widget(
-            Paragraph::new(format!(" VERUSSEEK  /  {}", self.path.display()))
+            Paragraph::new(format!(" VERUSFORGE  /  {}", self.path.display()))
                 .style(Style::default().fg(Color::Cyan)),
             areas[0],
         );
@@ -758,7 +777,7 @@ impl Welcome {
         if outer.width < 46 || outer.height < 18 {
             frame.render_widget(
                 Paragraph::new(
-                    "VerusSeek\nResize terminal to at least 46 × 18.\nEsc / Ctrl-C to quit",
+                    "VerusForge\nResize terminal to at least 46 × 18.\nEsc / Ctrl-C to quit",
                 )
                 .wrap(Wrap { trim: true }),
                 outer,
@@ -766,7 +785,7 @@ impl Welcome {
             return;
         }
         let width = outer.width.min(88);
-        let large_logo = form.is_none() && width >= 57 && outer.height >= 24;
+        let large_logo = form.is_none() && width >= 59 && outer.height >= 24;
         let height = if form.is_some() {
             outer.height.saturating_sub(2).min(36)
         } else {
@@ -794,7 +813,7 @@ impl Welcome {
         .split(area);
         let cyan = Style::default().fg(Color::Cyan);
         frame.render_widget(
-            Paragraph::new(format!("VerusSeek  ·  v{}", env!("CARGO_PKG_VERSION")))
+            Paragraph::new(format!("VerusForge  ·  v{}", env!("CARGO_PKG_VERSION")))
                 .alignment(Alignment::Center)
                 .style(Style::default().fg(Color::DarkGray)),
             areas[0],
@@ -802,7 +821,7 @@ impl Welcome {
         let logo = if large_logo {
             Paragraph::new(logo_lines())
         } else {
-            Paragraph::new("V E R U S S E E K").style(cyan.add_modifier(Modifier::BOLD))
+            Paragraph::new("V E R U S F O R G E").style(cyan.add_modifier(Modifier::BOLD))
         };
         frame.render_widget(logo.alignment(Alignment::Center), areas[1]);
         if let Some(picker) = picker {
@@ -997,7 +1016,7 @@ mod tests {
         form.fields[1].choice = 2;
         let args = welcome.arguments(&form).unwrap().unwrap();
         let parsed = <crate::Cli as clap::Parser>::try_parse_from(
-            std::iter::once("verusseek".to_owned()).chain(args),
+            std::iter::once("verusforge".to_owned()).chain(args),
         )
         .unwrap();
         match parsed.command.unwrap() {
@@ -1058,7 +1077,7 @@ mod tests {
         let form = welcome.form().unwrap();
         let args = welcome.arguments(&form).unwrap().unwrap();
         let cli = <crate::Cli as clap::Parser>::try_parse_from(
-            std::iter::once("verusseek".to_owned()).chain(args),
+            std::iter::once("verusforge".to_owned()).chain(args),
         )
         .unwrap();
         assert!(matches!(
