@@ -115,7 +115,21 @@ Natural Language → Rust 提供 NL2VBench 的四份原始需求：最大值下�
 
 ### 3. 配置模型服务
 
-在仓库根目录创建本地 `apikey` 文件，依次填写三行：API 密钥、API base URL、模型名称。文件已加入 `.gitignore`，不要提交凭据。也可通过 `--api-config PATH` 指定文件，或设置 `VERUSFORGE_API_KEY`、`VERUSFORGE_API_BASE`、`VERUSFORGE_MODEL` 环境变量。
+仓库提供不含真实凭据的 [`api.example`](api.example)。复制后填写自己的配置：
+
+```bash
+cp api.example apikey
+```
+
+`apikey` 必须严格包含三行，依次为 API 密钥、兼容 OpenAI Chat Completions 的 base URL、模型名称；不要添加注释、引号或 `KEY=value` 前缀。例如 base URL 可写为服务商提供的 `https://.../v1` 地址，程序会自动请求其 `chat/completions` 路径。`apikey` 已加入 `.gitignore`，不要提交真实凭据。
+
+也可通过 `--api-config PATH` 指定其他三行配置文件，或完全使用环境变量：
+
+```bash
+export VERUSFORGE_API_KEY="your-api-key"
+export VERUSFORGE_API_BASE="https://api.example.com/v1"
+export VERUSFORGE_MODEL="your-model-name"
+```
 
 ### 4. 生成 Rust 与 Verus 证明
 
